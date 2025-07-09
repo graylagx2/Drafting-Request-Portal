@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block head %}
+  {{ super() }}
+  <!-- Dashboard Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  <!-- File Browser Styles -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/file_management/sidebar_tree.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/file_management/file_management.css') }}"
+  />
+{% endblock %}
+
+{% block content %}
+<body
+  data-current-user="{{ current_user.username if current_user else '' }}"
+  data-user-roles="{{ current_user.roles | join(',') if current_user and current_user.roles else '' }}"
+>
+  <div class="flex h-[calc(100vh-4rem)] bg-white border-t border-gray-200">
+    {% include 'components/file_browser/file_browser_sidebar.html' %}
+    <main class="flex-1 p-6 overflow-y-auto">
+      <!-- Existing Admin Dashboard -->
+      <div class="dashboard-wrapper">
+        <div class="dashboard-welcome">
+          <h1>Welcome, {{ current_user.actual_name or current_user.username }}!</h1>
+          <p>This is your control panel for Kern-Energy-Nexus.</p>
+        </div>
+        <div class="dashboard-tile-container">
+          {% if current_user.has_role('admin') or current_user.has_role('engineer') %}
+          <a href="{{ url_for('engineering.project_overview') }}" class="tile">
+            <div class="tile-icon"><i data-lucide="hard-hat"></i></div>
+            <div class="tile-label">Project-Control</div>
+          </a>
+          {% endif %}
+          {% if current_user.has_role('admin') or current_user.has_role('drafter') %}
+            {% if current_user.has_role('admin') %}
+            <a href="#" id="open-admin-drafting-modal" class="tile">
+              <div class="tile-icon"><i data-lucide="pen-tool"></i></div>
+              <div class="tile-label">Drafting-Control</div>
+            </a>
+            {% else %}
+            <a href="{{ url_for('drafting.view_tickets') }}" class="tile">
+              <div class="tile-icon"><i data-lucide="pen-tool"></i></div>
+              <div class="tile-label">Drafting-Control</div>
+            </a>
+            {% endif %}
+          {% endif %}
+          {% if current_user.has_role('admin') or current_user.has_role('qc') %}
+          <a href="{{ url_for('quality.submit_quality_form') }}" class="tile">
+            <div class="tile-icon"><i data-lucide="flask-conical"></i></div>
+            <div class="tile-label">Quality-Control</div>
+          </a>
+          {% endif %}
+          {% if current_user.has_role('admin') or current_user.has_role('engineering') %}
+          <a href="{{ url_for('document_control.control_index') }}" class="tile">
+            <div class="tile-icon"><i data-lucide="file-stack"></i></div>
+            <div class="tile-label">Document-Control</div>
+          </a>
+          {% endif %}
+          {% if current_user.has_role('admin') %}
+          <a href="{{ url_for('analytics.insights') }}" class="tile">
+            <div class="tile-icon"><i data-lucide="bar-chart-3"></i></div>
+            <div class="tile-label">Platform Analytics</div>
+          </a>
+          {% endif %}
+        </div>
+        <!-- <div class="dashboard-feed">
+          <h2>System Feed</h2>
+          <div class="feed-list">
+            {% for item in feed_items %}
+            <div class="feed-item">
+              <p>{{ item.message }}</p>
+              <span>{{ item.timestamp.strftime('%b %d, %Y %I:%M %p') }}</span>
+            </div>
+            {% else %}
+            <p class="no-activity">No recent activity. Your workspace is clear.</p>
+            {% endfor %}
+          </div>
+        </div> -->
+      </div>
+      <!-- File Browser Main UI -->
+      <div class="mt-8 mb-8">
+        {% include 'components/file_browser/file_browser.html' %}
+      </div>
+    </main>
+  </div>
+</body>
+{% endblock %}
+
+{% block fullscreen %}
+<div id="modal-root"></div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script type="module" src="{{ url_for('static', filename='js/file_management/app.js') }}"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+  <script type="module">
+    import { openAdminDraftingModal } from "/static/js/admin_drafting_modal.js";
+    const adminDraftingTile = document.getElementById("open-admin-drafting-modal");
+    if (adminDraftingTile) {
+      adminDraftingTile.addEventListener("click", (e) => {
+        e.preventDefault();
+        openAdminDraftingModal('{{ url_for("drafting.admin_tickets_modal") }}');
+      });
+    }
+  </script>
+{% endblock %}

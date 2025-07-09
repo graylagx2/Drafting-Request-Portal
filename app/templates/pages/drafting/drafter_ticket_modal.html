@@ -1,0 +1,138 @@
+<!-- templates/pages/drafting/drafter_ticket_modal.html -->
+
+<!-- Modal Backdrop -->
+<div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40"></div>
+
+<!-- Modal Container -->
+<div id="modal-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl shadow-2xl w-[90vw] h-[90vh] p-6 relative overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h2 id="modal-title" class="text-2xl font-bold text-[var(--nexus-blue)]">My Assigned Tickets</h2>
+      <button id="close-modal" aria-label="Close modal" class="text-gray-400 hover:text-gray-600 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Work Order Search -->
+    <div class="mb-4">
+      <input id="workorder-search" type="text" placeholder="Search by WO / AFE..." class="w-full p-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--nexus-blue)] transition" />
+    </div>
+
+    <!-- Tickets Table -->
+    {% if tickets %}
+    <div class="overflow-x-auto border rounded-lg shadow-sm">
+      <table id="requests-table-active" class="min-w-full text-sm text-left" data-sort-dir="asc">
+        <thead class="sticky top-0 z-10 text-sm bg-[var(--nexus-blue)] text-[var(--nexus-white)]">
+          <tr>
+            <th class="px-4 py-2">Ticket #</th>
+            <th class="px-4 py-2">WO / AFE</th>
+            <th class="px-4 py-2">Type</th>
+            <th class="px-4 py-2 cursor-pointer sortable" data-index="3" data-numeric="true">
+              Priority <span class="ml-1 text-xs opacity-75">↕</span>
+            </th>
+            <th class="px-4 py-2">Description</th>
+            <th class="px-4 py-2">Status</th>
+            <th class="px-4 py-2 cursor-pointer sortable" data-index="6" data-numeric="false">
+              Submitted <span class="ml-1 text-xs opacity-75">↕</span>
+            </th>
+            <th class="px-4 py-2">Files</th>
+            <th class="px-4 py-2 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-[var(--nexus-white)]" id="active-table-body">
+          {% for ticket in tickets %}
+          <tr class="border-b hover:bg-gray-50 transition">
+            <td class="px-4 py-3 font-semibold text-[var(--nexus-blue)] whitespace-nowrap">{{ ticket.ticket_number }}</td>
+            <td class="px-4 py-3 text-gray-800">{{ ticket.work_order or ticket.moc or '—' }}</td>
+            <td class="px-4 py-3 text-gray-800">{{ ticket.request_type|capitalize }}</td>
+            <td class="px-4 py-3 text-gray-900 font-bold">{{ ticket.priority }}</td>
+            <td class="px-4 py-3 text-gray-800 relative group">
+              <div class="truncate max-w-[200px]">{{ ticket.description }}</div>
+              <div class="absolute z-20 left-0 top-full mt-1 w-96 p-2 bg-white border border-gray-300 shadow-lg rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                <p class="text-gray-900 text-sm">{{ ticket.description }}</p>
+              </div>
+            </td>
+            <td class="px-4 py-3">
+              <span class="inline-block px-2 py-1 text-xs font-medium rounded-full 
+                {% if ticket.status == 'In Progress' %}bg-blue-100 text-blue-800{% else %}bg-gray-200 text-gray-700{% endif %}">
+                {{ ticket.status }}
+              </span>
+            </td>
+            <td class="px-4 py-3 text-gray-600 whitespace-nowrap">{{ ticket.created_at.strftime('%b %d, %Y') }}</td>
+            <td class="px-4 py-3">
+              {% if ticket.attachments %}
+              <details class="transition">
+                <summary class="cursor-pointer text-[var(--nexus-accent-green)] hover:underline">
+                  View ({{ ticket.attachments|length }})
+                </summary>
+                <ul class="mt-1 ml-4 list-disc text-xs text-gray-700">
+                  {% for file in ticket.attachments %}
+                  <li>
+                    <a href="{{ url_for('static', filename=file.file_path) }}" data-file-url="{{ url_for('static', filename=file.file_path) }}" class="file-preview-link hover:underline" target="_blank">
+                      {{ file.file_path.split('/')[-1] }}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </details>
+              {% else %}
+              <span class="text-gray-400 text-sm">—</span>
+              {% endif %}
+            </td>
+            <td class="px-4 py-3 text-right">
+              {% if ticket.status == 'In Progress' %}
+              <button type="button"
+                class="submit-review-btn btn-primary text-sm font-medium py-1 px-3"
+                data-ticket-number="{{ ticket.ticket_number }}"
+                data-engineer-name="{{ ticket.review_engineer.actual_name }}">
+                Submit for Review
+              </button>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="text-gray-600 mt-6">No assigned tickets found.</p>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Confirm Review Modal -->
+<div id="confirm-review-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden"></div>
+<div id="confirm-review-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto hidden">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative" role="dialog" aria-modal="true" aria-labelledby="confirm-review-title">
+    <h3 id="confirm-review-title" class="text-xl font-bold text-[var(--nexus-blue)] mb-4">Confirm Submission</h3>
+    <p id="confirm-review-message" class="mb-6 text-gray-700">
+      You are about to submit <span class="font-semibold" id="confirm-file-name"></span> to <span class="font-semibold" id="confirm-engineer-name"></span>. Proceed?
+    </p>
+    <div class="flex justify-end gap-4">
+      <button type="button" id="cancel-confirm-btn" class="btn-primary">Cancel</button>
+      <button type="button" id="confirm-submit-btn" class="btn-primary bg-[var(--nexus-blue)] text-[var(--nexus-white)] hover:bg-opacity-90">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Review Modal -->
+<div id="upload-review-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden"></div>
+<div id="upload-review-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto hidden">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative" role="dialog" aria-modal="true" aria-labelledby="upload-review-title">
+    <h3 id="upload-review-title" class="text-xl font-bold text-[var(--nexus-blue)] mb-4">Upload Review Document</h3>
+    <p class="mb-4 text-gray-700">You don’t have the review document in the review folder — please add it now.</p>
+    <div id="upload-drop-zone" class="w-full min-h-[140px] border-2 border-dashed border-gray-300 bg-gray-100 rounded-md p-6 text-center cursor-pointer hover:border-[var(--nexus-blue)] hover:bg-gray-200 transition relative">
+      <p class="text-sm text-gray-600">Drag and drop your PDF here, or <span class="font-medium text-[var(--nexus-blue)]">click to browse</span></p>
+      <input type="file" id="upload-review-file" accept="application/pdf" class="hidden" />
+      <div id="review-file-list" class="mt-4"></div>
+    </div>
+    <p class="text-xs text-red-500 mt-2 hidden" id="upload-error">Please upload a PDF file.</p>
+    <div class="mt-6 flex justify-end gap-4">
+      <button type="button" id="cancel-upload-btn" class="btn-primary">Cancel</button>
+      <button type="button" id="upload-review-btn" class="btn-primary">Upload & Continue</button>
+    </div>
+  </div>
+</div>

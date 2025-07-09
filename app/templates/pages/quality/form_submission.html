@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+  <h2 class="text-2xl font-bold text-nexus-blue mb-6">Submit Quality Form</h2>
+
+  <form method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md space-y-4">
+    <div>
+      <label for="form_type" class="block font-semibold text-gray-700">Form Type</label>
+      <select id="form_type" name="form_type" required class="mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nexus-blue">
+        <option value="">Select</option>
+        <option value="NDE">NDE Report</option>
+        <option value="Welding Inspection">Welding Inspection</option>
+        <option value="Visual">Visual Report</option>
+        <option value="Pressure Test">Pressure Test Log</option>
+        <option value="General">General Quality Form</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="work_order" class="block font-semibold text-gray-700">Work Order / AFE</label>
+      <input type="text" id="work_order" name="work_order" placeholder="WO#123456 or AFE#98765"
+        class="mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nexus-blue">
+    </div>
+
+    <div>
+      <label for="description" class="block font-semibold text-gray-700">Description</label>
+      <textarea id="description" name="description" rows="4"
+        class="mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nexus-blue"
+        placeholder="What is this form documenting?"></textarea>
+    </div>
+
+    <div>
+      <label for="attachments" class="block font-semibold text-gray-700">Attachments (PDF, JPG, PNG)</label>
+      <input type="file" id="attachments" name="attachments" multiple accept=".pdf,.jpg,.png"
+        class="block mt-2 w-full text-sm text-gray-600">
+    </div>
+
+    <button type="submit" class="btn-primary w-full">Submit Form</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,168 @@
+<!-- templates/pdf_annotation_snippet.html -->
+
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/pdf_editor.css') }}"
+/>
+
+<div id="modal-pdf-container" data-pdf-url="{{ pdf_url|safe }}">
+  <!-- Modal Header -->
+  <div class="modal-header-bar">
+    <h2 class="modal-title">Mark Up</h2>
+    <button id="close-pdf-modal" class="close-btn" aria-label="Close PDF Editor">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+           viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="modal-main-content">
+    <!-- LEFT SIDEBAR / TOOL CHEST -->
+    <aside id="qcConsole" class="open">
+      <div class="tool-icons">
+        <button id="tool-highlighter" class="tool-icon active" title="Highlighter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 21l6-6L18 6l3 3L9 21H3z" />
+          </svg>
+        </button>
+        <!-- Line -->
+        <button id="tool-line" class="tool-icon" title="Line">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 20l16-16" />
+          </svg>
+        </button>
+        <!-- Pen (pencil) -->
+        <button id="tool-pen" class="tool-icon" title="Pen">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 21l6-6L18 6l3 3l-6 6l-6 6H3v-3z" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="tool-settings">
+        <div id="settings-highlighter" class="settings-group">
+          <div class="settings-header">Color</div>
+          <div class="color-picker" id="picker-highlighter">
+            <span class="color-swatch selected" data-color="rgba(255,105,180,0.6)"
+                  style="background:rgba(255,105,180,0.6)"></span>
+            <span class="color-swatch" data-color="rgba(30,144,255,0.6)"
+                  style="background:rgba(30,144,255,0.6)"></span>
+            <span class="color-swatch" data-color="rgba(138,43,226,0.6)"
+                  style="background:rgba(138,43,226,0.6)"></span>
+            <span class="color-swatch" data-color="rgba(255,255,0,0.5)"
+                  style="background:rgba(255,255,0,0.5)"></span>
+          </div>
+          <div class="settings-header">Thickness</div>
+          <input type="range" id="slider-highlighter" class="thickness-slider"
+                 min="1" max="30" value="16" />
+        </div>
+
+        <div id="settings-line" class="settings-group hidden">
+          <div class="settings-header">Color</div>
+          <div class="color-picker" id="picker-line">
+            <span class="color-swatch selected" data-color="red" style="background:red"></span>
+            <span class="color-swatch" data-color="blue" style="background:blue"></span>
+            <span class="color-swatch" data-color="black" style="background:black"></span>
+            <span class="color-swatch" data-color="green" style="background:green"></span>
+          </div>
+          <div class="settings-header">Thickness</div>
+          <input type="range" id="slider-line" class="thickness-slider"
+                 min="1" max="16" value="4" />
+        </div>
+
+        <div id="settings-pen" class="settings-group hidden">
+          <div class="settings-header">Color</div>
+          <div class="color-picker" id="picker-pen">
+            <span class="color-swatch selected" data-color="black" style="background:black"></span>
+            <span class="color-swatch" data-color="red" style="background:red"></span>
+            <span class="color-swatch" data-color="blue" style="background:blue"></span>
+            <span class="color-swatch" data-color="green" style="background:green"></span>
+            <span class="color-swatch" data-color="orange" style="background:orange"></span>
+          </div>
+          <div class="settings-header">Thickness</div>
+          <input type="range" id="slider-pen" class="thickness-slider"
+                 min="1" max="16" value="4" />
+        </div>
+      </div>
+
+      <button id="clearHighlightsBtn" class="btn-clear">Clear All</button>
+      <div id="mapLog" class="map-log"></div>
+
+      <!-- COMMENT THREAD & ACTION CONTROLS (unchanged) -->
+      <section id="comment-thread-section" class="comment-thread-section">
+        <div class="comment-thread-header flex items-center justify-between mb-2">
+          <h3 class="font-semibold text-[var(--nexus-blue)] text-base">Comments</h3>
+          <span id="comment-badge" class="comment-badge hidden"></span>
+        </div>
+        <div id="comment-thread" class="comment-thread">
+          <div class="comment-placeholder text-gray-400 text-sm text-center py-4">
+            No comments yet. Add your notes or revision requests here.
+          </div>
+        </div>
+        <form id="comment-form" class="comment-form mt-2" autocomplete="off">
+          <textarea id="comment-input" class="comment-input w-full border rounded p-2"
+                    rows="2" maxlength="500"
+                    placeholder="Add a comment (optional)..."></textarea>
+          <button type="submit" id="comment-submit-btn" class="btn-primary mt-2 w-full">
+            Post Comment
+          </button>
+        </form>
+      </section>
+
+      <div id="toolActionControls" class="qc-actions">
+        <button id="btn-approve" class="btn-primary mb-2 w-full">Approve</button>
+        <button id="btn-revision"
+                class="btn-primary bg-[var(--nexus-blue)] text-[var(--nexus-white)]
+                       hover:bg-opacity-90 w-full">
+          Submit for Revision
+        </button>
+      </div>
+
+      <div id="toolChestToggle" title="Collapse Sidebar">
+        <span id="toggleIcon">⮜</span>
+      </div>
+    </aside>
+
+    <!-- PDF VIEWER (unchanged) -->
+    <main id="pdfContainer">
+      <div id="pdfCanvasWrapper" class="pdf-canvas-wrapper">
+        <div id="zoomWrapper">
+          <canvas id="mapPdfCanvas"></canvas>
+          <canvas id="annotationCanvas"></canvas>
+          <div id="formLayer"></div>
+        </div>
+      </div>
+      <nav id="pageNavControls">
+        <button id="prevPageBtn" disabled>Prev</button>
+        <span id="pageIndicator" class="page-number-display">Page 1 / 1</span>
+        <button id="nextPageBtn" disabled>Next</button>
+      </nav>
+    </main>
+  </div>
+</div>
+
+<script>
+  // Sidebar collapse/expand
+  document.getElementById("toolChestToggle").onclick = () => {
+    const sb = document.getElementById("qcConsole");
+    sb.classList.toggle("collapsed");
+    document.getElementById("toggleIcon").textContent =
+      sb.classList.contains("collapsed") ? "⮞" : "⮜";
+  };
+
+  // Close PDF overlay & clear
+  document.getElementById("close-pdf-modal").onclick = () => {
+    const ov = document.getElementById("pdf-annotation-overlay");
+    if (ov) ov.classList.add("hidden");
+    const ct = document.getElementById("pdf-annotation-container");
+    if (ct) ct.innerHTML = "";
+  };
+</script>

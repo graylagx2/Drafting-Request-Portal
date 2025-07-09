@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kern-Energy-Nexus</title>
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='img/nexus-logo.png') }}"
+    />
+
+    <!-- Core Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Global Styles -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+
+    <!-- Page-Specific Styles -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/file_management/sidebar_tree.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/file_management/file_management.css') }}"
+    />
+    {% block head %}{% endblock %}
+  </head>
+  <body
+    class="bg-nexus-gray min-h-screen flex flex-col"
+    data-current-user="{{ current_user.username if current_user else '' }}"
+    data-user-roles="{% if current_user and current_user.roles %}{{ current_user.roles|map(attribute='name')|join(',') }}{% else %}{% endif %}"
+  >
+    <!-- Navbar -->
+    {% include 'layouts/navbar.html' %}
+
+    <!-- Flash + Main Content -->
+    <main class="flex-1">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="space-y-2 m-4">
+            {% for category, message in messages %}
+              <div
+                class="p-3 rounded text-white {{ category == 'success' and 'bg-green-600' or 'bg-red-600' }}"
+              >
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% include 'layouts/footer.html' %}
+
+    <!-- Modals -->
+    {% block fullscreen %}
+      <div id="modal-root"></div>
+    {% endblock %}
+
+    <!-- Scripts -->
+    {% block scripts %}
+      <!-- 1) Icon Library (Lucide) – ESM import -->
+      <script src="https://unpkg.com/lucide@latest"></script>
+      <script>lucide.createIcons();</script>
+
+      <!-- 2) JustValidate (for form validation) – global -->
+      <script src="https://cdn.jsdelivr.net/npm/just-validate@latest/dist/just-validate.production.min.js"></script>
+
+      <!-- 3) Request Modals (Drafting System) – ESM import -->
+      <script type="module">
+        import { initRequestModal } from "/static/js/request.js";
+        import { initViewRequestsModal } from "/static/js/view_requests_modal.js";
+        initRequestModal();
+        initViewRequestsModal();
+      </script>
+
+      <!-- 4) Annotation Tool – global -->
+      <script src="{{ url_for('static', filename='js/annotation_tool.js') }}"></script>
+
+      <!-- 5) PDFTron WebViewer – global (defines WebViewer) -->
+      <script src="https://www.pdftron.com/downloads/pl/webviewer.min.js"></script>
+      <script>
+        console.log(">>> webviewer.min.js loaded:", typeof WebViewer);
+      </script>
+
+      <!-- 6) PDF.js library (defines pdfjsLib) -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.5.141/pdf.min.js"></script>
+      <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.5.141/pdf.worker.min.js";
+      </script>
+
+      <!-- 7) Engineer Ticket Modal logic – ESM import -->
+      <script
+        type="module"
+        src="{{ url_for('static', filename='js/engineer_ticket_modal.js') }}"
+      ></script>
+      <!-- 8) PDF Editor (requires pdfjsLib) – ESM import -->
+      <script
+        type="module"
+        src="{{ url_for('static', filename='js/pdf_editor.js') }}"
+      ></script>
+    {% endblock %}
+  </body>
+</html>

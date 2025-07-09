@@ -1,0 +1,28 @@
+<!-- {% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto">
+  <h2 class="text-2xl font-bold text-nexus-blue mb-6">Archive History</h2>
+
+  {% if archives %}
+  <ul class="space-y-4">
+    {% for bundle in archives %}
+    <li class="bg-white shadow rounded p-4 flex justify-between items-center">
+      <div>
+        <p class="font-semibold text-gray-800">{{ bundle.package_name }}</p>
+        <p class="text-sm text-gray-500">
+          Ticket: {{ bundle.ticket_number }} &bull;
+          Archived: {{ bundle.timestamp.strftime('%b %d, %Y') }} &bull;
+          By: {{ bundle.submitted_by.actual_name }}
+        </p>
+      </div>
+      <a href="{{ url_for('document_control.download_archive', archive_id=bundle.id) }}"
+         class="text-nexus-blue hover:underline text-sm">Download</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-gray-600">No archived drawing packages available.</p>
+  {% endif %}
+</div>
+{% endblock %} -->

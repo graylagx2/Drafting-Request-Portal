@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-8">
+  <h2 class="text-2xl font-bold text-nexus-blue">Analytics Dashboard</h2>
+
+  <!-- KPI Summary Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="bg-white p-4 rounded shadow-md text-center">
+      <p class="text-sm text-gray-500">Tickets Submitted</p>
+      <p class="text-2xl font-bold text-nexus-blue">{{ kpi.total_tickets }}</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow-md text-center">
+      <p class="text-sm text-gray-500">Packages Approved</p>
+      <p class="text-2xl font-bold text-nexus-blue">{{ kpi.total_approved }}</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow-md text-center">
+      <p class="text-sm text-gray-500">In Progress</p>
+      <p class="text-2xl font-bold text-yellow-500">{{ kpi.in_progress }}</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow-md text-center">
+      <p class="text-sm text-gray-500">Avg. Completion Time</p>
+      <p class="text-2xl font-bold text-green-600">{{ kpi.avg_completion_days }} days</p>
+    </div>
+  </div>
+
+  <!-- Chart Area -->
+  <div class="bg-white p-6 rounded shadow-md">
+    <div id="ticket-trend-chart" style="height: 300px;"></div>
+  </div>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('ticket-trend-chart').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: {{ trend.labels|tojson }},
+      datasets: [{
+        label: 'Tickets Over Time',
+        data: {{ trend.values|tojson }},
+        fill: true,
+        borderColor: '#0f3b63',
+        backgroundColor: 'rgba(15,59,99,0.1)',
+        tension: 0.4,
+        pointRadius: 3,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+{% endblock %}

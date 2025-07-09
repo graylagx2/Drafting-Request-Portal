@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto">
+  <h2 class="text-2xl font-bold text-nexus-blue mb-6">Engineering Performance</h2>
+
+  <canvas id="engineerChart" height="120" class="bg-white p-6 rounded shadow-md"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('engineerChart').getContext('2d');
+const chart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: {{ engineers|tojson }},
+    datasets: [
+      {
+        label: 'In Design',
+        data: {{ design_counts|tojson }},
+        backgroundColor: '#1D4ED8',
+      },
+      {
+        label: 'Completed',
+        data: {{ complete_counts|tojson }},
+        backgroundColor: '#22C55E',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    scales: {
+      y: { beginAtZero: true }
+    }
+  }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+  <h2 class="text-2xl font-bold text-nexus-blue mb-6">My Assigned Projects</h2>
+
+  <div class="space-y-6">
+    {% for phase, tickets in tickets_by_phase.items() %}
+    <div>
+      <h3 class="text-xl font-semibold text-gray-700 mb-2">{{ phase }}</h3>
+      <div class="overflow-auto bg-white shadow rounded">
+        <table class="min-w-full text-sm text-left">
+          <thead class="bg-nexus-blue text-white">
+            <tr>
+              <th class="p-3">Ticket</th>
+              <th class="p-3">Type</th>
+              <th class="p-3">Unit</th>
+              <th class="p-3">Priority</th>
+              <th class="p-3">Drafter</th>
+              <th class="p-3">Last Update</th>
+              <th class="p-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ticket in tickets %}
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-3 font-semibold">{{ ticket.number }}</td>
+              <td class="p-3">{{ ticket.request_type }}</td>
+              <td class="p-3">{{ ticket.unit }}</td>
+              <td class="p-3">{{ ticket.priority }}</td>
+              <td class="p-3">{{ ticket.drafter.actual_name if ticket.drafter else '—' }}</td>
+              <td class="p-3">{{ ticket.last_updated.strftime('%b %d') }}</td>
+              <td class="p-3">
+                <a href="{{ url_for('engineering.project_details', ticket_id=ticket.id) }}"
+                  class="text-nexus-blue hover:underline">Open</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% else %}
+    <p class="text-gray-500">No projects assigned.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

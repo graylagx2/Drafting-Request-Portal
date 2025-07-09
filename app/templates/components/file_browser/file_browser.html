@@ -1,0 +1,137 @@
+{# templates/components/file_browser.html #}
+{# Represents the main content area for file browsing #}
+
+{# Action Bar #}
+<div id="main-action-bar" class="flex items-center space-x-2 mb-4 flex-wrap gap-y-2">
+     {# --- MODIFIED: Keep title attribute for tooltip, text will be dynamic --- #}
+     <button class="action-bar-btn" id="action-upload-btn" title="">
+         <i data-lucide="upload-cloud" class="button-icon-spacing"></i> <span id="upload-button-text">Upload</span>
+     </button>
+     {# --- REMOVED: Separate span for destination text --- #}
+
+     <button class="action-bar-btn" id="action-create-btn"> <i data-lucide="plus-square"></i> Create </button>
+     <button class="action-bar-btn"> <i data-lucide="share-2"></i> Share </button>
+</div>
+
+{# Hidden file input for upload trigger (triggered AFTER modal confirmation) #}
+<input type="file" id="file-upload-input" class="hidden" multiple>
+
+{# Main dynamic content area #}
+<div id="main-content-area">
+    {# DCS Controls (Hidden/shown by JS based on view) #}
+    <div id="dcs-controls" class="tabs-and-search-container hidden">
+         <div class="tabs-container">
+            <button class="tab-button active" data-filter="all">All Documents</button>
+            <button class="tab-button" data-filter="checked_out_by_me">Checked Out By Me</button>
+            <button class="tab-button" data-filter="checked_out">All Checked Out</button>
+        </div>
+         <div class="relative">
+             <span class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none"> <i data-lucide="search" class="w-4 h-4 text-gray-400"></i> </span>
+            <input type="search" id="dcs-search" placeholder="Search documents..." class="tab-search-input pl-8"/>
+        </div>
+    </div>
+
+    {# Breadcrumbs #}
+    <nav id="archive-breadcrumbs" aria-label="Breadcrumb" class="flex items-center text-sm text-gray-500 mb-3">
+         {# Populated by JS #}
+     </nav>
+
+    {# Table Container (Holds table AND status divs) #}
+    <div id="file-list-container" class="relative min-h-[300px]">
+        {# Table #}
+        <table class="min-w-full dcs-file-list" id="dcs-file-list">
+            <thead id="dcs-file-list-head"></thead>
+            <tbody id="dcs-file-list-body">
+                 {# Populated by JS #}
+            </tbody>
+        </table>
+
+        {# Loading State #}
+        <div id="dcs-loading-state" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-75 z-10">
+            <i class="fas fa-spinner fa-spin text-gray-500 text-4xl"></i>
+            <p class="mt-3 text-gray-600">Loading...</p>
+        </div>
+
+        {# Error State #}
+         <div id="dcs-error-state" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-gray-50 p-6 z-10 text-center">
+             <i class="fas fa-exclamation-triangle text-red-400 text-5xl mb-4"></i>
+             <p class="text-xl font-medium text-red-700">Could not load items</p>
+             <p id="dcs-error-message" class="mt-1 text-base text-red-600"></p>
+         </div>
+
+        {# Empty State #}
+        <div id="dcs-empty-state" class="hidden absolute inset-0 flex items-center justify-center p-6 z-10">
+            <div class="empty-state-content max-w-md mx-auto text-center">
+                 <i class="fas fa-folder-open empty-state-icon mb-5 text-gray-400 text-5xl"></i>
+                 <p id="empty-state-message" class="text-xl font-medium text-gray-700 mb-3">No files added yet.</p>
+                 <p class="text-base text-gray-500">
+                     Drag files here or
+                     <button type="button" id="empty-state-choose-files-link" class="text-[var(--nexus-blue)] hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-[var(--nexus-blue)] focus:ring-offset-2 rounded">choose your files</button>
+                 </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# --- MODIFIED: Added Context Menus --- #}
+<div id="storage-item-context-menu" class="context-menu absolute z-50 hidden bg-white border border-gray-300 rounded-md shadow-lg py-1 text-sm min-w-[180px]">
+    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" data-context-action="download_file">
+        <i data-lucide="download" class="w-4 h-4 mr-3 opacity-70"></i>Download
+    </a>
+    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" data-context-action="rename">
+        <i data-lucide="edit-3" class="w-4 h-4 mr-3 opacity-70"></i>Rename
+    </a>
+    <div class="my-1 border-t border-gray-200"></div>
+    <a href="#" class="flex items-center px-4 py-2 text-red-600 hover:bg-red-50 hover:text-red-700" data-context-action="delete">
+        <i data-lucide="trash-2" class="w-4 h-4 mr-3 opacity-70"></i>Delete
+    </a>
+    </div>
+
+<div id="dcs-item-context-menu" class="context-menu absolute z-50 hidden bg-white border border-gray-300 rounded-md shadow-lg py-1 text-sm min-w-[200px]">
+   <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" data-context-action="checkout">
+       <i data-lucide="lock" class="w-4 h-4 mr-3 opacity-70"></i>Checkout
+   </a>
+   <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" data-context-action="checkin">
+        <i data-lucide="unlock" class="w-4 h-4 mr-3 opacity-70"></i>Check-in
+    </a>
+   <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" data-context-action="history">
+       <i data-lucide="history" class="w-4 h-4 mr-3 opacity-70"></i>Revision History
+   </a>
+   <div class="my-1 border-t border-gray-200"></div>
+    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" data-context-action="view_details">
+        <i data-lucide="file-text" class="w-4 h-4 mr-3 opacity-70"></i>View Details
+    </a>
+   </div>
+{# --- END MODIFIED --- #}
+
+
+{# --- Upload Confirmation Modal --- #}
+<div id="upload-confirmation-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-2" id="modal-title">Confirm Upload Location</h3>
+        <div class="mt-2">
+            <p class="text-sm text-gray-600">
+                You are about to upload files to:
+                <strong id="modal-upload-destination" class="font-semibold"></strong>
+            </p>
+        </div>
+        <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+            <button type="button" id="modal-confirm-upload-btn" class="inline-flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm">
+                Choose Files
+            </button>
+            <button type="button" id="modal-cancel-upload-btn" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+{# Other Modals (e.g., DCS) #}
+<div id="dcs-modal-root">
+    {# Modals like checkout, revision history etc. would go here #}
+    {# Example: <div id="checkout-modal" class="modal-backdrop hidden"> ... </div> #}
+</div>
+
+{# Ensure Lucide icons are available and initialized if you use them in menus #}
+{# <script src="https://unpkg.com/lucide@latest"></script> #}
+{# <script> lucide.createIcons(); </script> #}

@@ -1,0 +1,29 @@
+<!-- {% extends 'base.html' %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/drive.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/drive-layout.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="dashboard-wrapper drafter-layout">
+  {% include 'file_browser/_file_browser.html' %}
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  // tell drive.js where “home” is and that user can write
+  window.USER_HOME = "{{ user_home }}";
+  window.userCanWrite = {{ (current_user.has_role('admin')
+                             or current_user.has_role('engineer')
+                             or current_user.has_role('drafter'))
+                             |lower }};
+  // expose media URL prefix
+  window.MEDIA_URL = "{{ config['MEDIA_URL'] }}";
+</script>
+<script
+  type="module"
+  src="{{ url_for('static', filename='js/drive.js') }}"
+></script>
+{% endblock %} -->

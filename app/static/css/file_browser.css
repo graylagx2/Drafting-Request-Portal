@@ -1,0 +1,72 @@
+/* Layout */
+html,
+body {
+    height: 100%;
+}
+
+#file-browser {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Top cards */
+.fb-card-top {
+    @apply flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition;
+}
+
+.fb-card-top i {
+    @apply mr-2;
+}
+
+/* Buttons */
+.btn-solid {
+    @apply px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition;
+}
+
+.btn-outline {
+    @apply p-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition;
+}
+
+/* Search input */
+.search-input {
+    @apply flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500;
+}
+
+/* Sidebar items */
+.sidebar-item {
+    @apply flex items-center p-2 rounded hover:bg-gray-100 cursor-pointer;
+}
+
+/* Grid cards */
+#fb-grid .fb-card {
+    @apply flex flex-col justify-between p-4 bg-white rounded-lg shadow hover:shadow-md transition;
+}
+
+.fb-card .name {
+    @apply font-medium mb-1;
+}
+
+.fb-card .meta {
+    @apply text-xs text-gray-500;
+}
+
+/* Table */
+#fb-table th,
+#fb-table td {
+    @apply px-4 py-2;
+}
+
+#fb-table tbody tr:hover {
+    @apply bg-gray-100;
+}
+
+/* Details pane */
+#fb-details p {
+    @apply text-sm text-gray-700;
+}
+
+/* Utility */
+.hidden {
+    display: none;
+}

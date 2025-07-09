@@ -1,0 +1,81 @@
+2025-05-05 13:41:41,775 ERROR: Unhandled Exception [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:48]
+Traceback (most recent call last):
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\dashboard.py", line 29, in index
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\pages\dashboard\index.html", line 1, in top-level template code
+    {% extends 'base.html' %} {% block head %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\base.html", line 45, in top-level template code
+    {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\pages\dashboard\index.html", line 55, in block 'content'
+    <div class="mt-6">{% include 'file_browser/_file_browser.html' %}</div>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 64, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 98, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: file_browser/_file_browser.html
+2025-05-05 13:42:59,301 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:455]
+2025-05-05 13:42:59,303 INFO: User 4 listed entries for path: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-05 13:43:10,715 INFO: User 2 listed root folders successfully. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:455]
+2025-05-05 13:43:10,726 INFO: User 2 listed entries for path: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-05 13:43:47,821 INFO: User 2 listed root folders successfully. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:455]
+2025-05-05 13:43:47,826 INFO: User 2 listed entries for path: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-05 13:44:48,565 INFO: User 2 listed root folders successfully. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:455]
+2025-05-05 13:44:48,567 INFO: User 2 listed entries for path: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-05 13:45:06,186 INFO: User 2 listed root folders successfully. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:455]
+2025-05-05 13:45:06,198 INFO: User 2 listed entries for path: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-05 15:50:04,214 WARNING: Upload rejected: No files provided by user hparra (ID: 2) for path ''. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:237]
+2025-05-05 15:50:10,382 WARNING: Upload rejected: No files provided by user hparra (ID: 2) for path ''. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:237]
+2025-05-05 15:57:54,961 WARNING: Upload rejected: No files provided by user hparra (ID: 2) for path ''. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:237]
+2025-05-06 07:13:46,564 INFO: User hparra (ID: 2) successfully uploaded file 'QC-Package.pdf' to QC-Package.pdf [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:278]
+2025-05-06 07:13:46,580 INFO: User hparra (ID: 2) successfully uploaded 1 file(s) to '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:312]
+2025-05-06 08:03:53,770 INFO: User hparra (ID: 2) successfully uploaded file 'WO120951-QC-Package.pdf' to WO120951-QC-Package.pdf [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:282]
+2025-05-06 08:03:53,770 INFO: User hparra (ID: 2) successfully uploaded 1 file(s) to '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:304]
+2025-05-06 08:34:55,261 INFO: User hparra (ID: 2) successfully uploaded file 'Flange Assembly.pdf' to Flange_Assembly.pdf [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:312]
+2025-05-06 08:34:55,264 INFO: User hparra (ID: 2) successfully uploaded 1 file(s) to '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:334]
+2025-05-06 09:05:34,419 INFO: User hparra (ID: 2) successfully uploaded file 'Hydrotest Form 2023-10-19.pdf' to Hydrotest_Form_2023-10-19.pdf [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:312]
+2025-05-06 09:05:34,423 INFO: User hparra (ID: 2) successfully uploaded 1 file(s) to '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:334]
+2025-05-06 09:13:04,788 INFO: User hparra (ID: 2) successfully uploaded file '13、ASM Metals Handbook, Vol 13A.pdf' to 13ASM_Metals_Handbook_Vol_13A.pdf [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:312]
+2025-05-06 09:13:04,788 INFO: User hparra (ID: 2) successfully uploaded 1 file(s) to '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:334]
+2025-05-06 11:10:27,422 INFO: --- list_entries: START --- [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:80]
+2025-05-06 11:10:27,440 INFO: list_entries: Requested path string: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:87]
+2025-05-06 11:10:27,441 INFO: list_entries: Sanitized path for LocalFSAdapter: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:92]
+2025-05-06 11:10:27,443 INFO: list_entries: Found 11 entries in filesystem for path '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:95]
+2025-05-06 11:10:27,444 INFO: list_entries: Potential file keys for DB lookup (5 keys): ['QC-Package.pdf', 'WO120951-QC-Package.pdf', 'Flange_Assembly.pdf', 'Hydrotest_Form_2023-10-19.pdf', '13ASM_Metals_Handbook_Vol_13A.pdf'] [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:104]
+2025-05-06 11:10:27,444 INFO: list_entries: Querying database for metadata for 5 potential file keys. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:108]
+2025-05-06 11:10:27,452 INFO: list_entries: Database query returned 0 matching DocumentRevision records. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:117]
+2025-05-06 11:10:27,455 INFO: list_entries: Successfully prepared 11 entries for response. User 2, Path: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:168]
+2025-05-06 11:10:27,456 INFO: --- list_entries: END --- [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:169]
+2025-05-06 11:10:36,098 INFO: User hparra (ID: 2) uploaded 'EP_5-1-5_Piping_System Line Numbering.pdf' to EP_5-1-5_Piping_System_Line_Numbering.pdf [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:223]
+2025-05-06 11:10:36,098 INFO: User 2 successfully uploaded 1 file(s) to '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:231]
+2025-05-06 11:10:38,031 INFO: --- list_entries: START --- [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:80]
+2025-05-06 11:10:38,033 INFO: list_entries: Requested path string: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:87]

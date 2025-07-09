@@ -1,0 +1,103 @@
+2025-05-01 14:08:55,837 ERROR: Unhandled Exception [in D:\DEV\Flask\Kern-Energy-Nexus\app\__init__.py:48]
+Traceback (most recent call last):
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\routes\dashboard.py", line 69, in index
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\templates\pages\dashboard\engineering_index.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\templates\base.html", line 45, in top-level template code
+    {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\templates\pages\dashboard\engineering_index.html", line 45, in block 'content'
+    {% include 'components/file_browser/file_browser_main.html' %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 64, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 98, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: components/file_browser/file_browser_main.html
+2025-05-01 14:09:00,018 ERROR: Unhandled Exception [in D:\DEV\Flask\Kern-Energy-Nexus\app\__init__.py:48]
+Traceback (most recent call last):
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\routes\dashboard.py", line 69, in index
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\templates\pages\dashboard\engineering_index.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\templates\base.html", line 45, in top-level template code
+    {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\templates\pages\dashboard\engineering_index.html", line 45, in block 'content'
+    {% include 'components/file_browser/file_browser_main.html' %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 64, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 98, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: components/file_browser/file_browser_main.html
+2025-05-01 14:18:22,060 INFO: User 4 listed entries for path: '' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-01 14:18:30,772 INFO: User 4 listed entries for path: 'Equipment History' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-01 14:18:32,432 INFO: User 4 listed entries for path: '' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-01 14:26:42,703 INFO: User 4 listed entries for path: '' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-01 14:27:13,837 INFO: User 4 listed entries for path: '' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-01 15:26:59,820 INFO: User 4 listed entries for path: '' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-01 15:31:35,817 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:455]
+2025-05-01 15:31:35,823 INFO: User 4 listed entries for path: '' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-02 11:21:58,905 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:455]
+2025-05-02 11:21:58,913 INFO: User 4 listed entries for path: '' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-02 11:22:00,732 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:455]
+2025-05-02 11:22:00,738 INFO: User 4 listed entries for path: '' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-02 11:22:01,898 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:455]
+2025-05-02 11:22:01,937 INFO: User 4 listed entries for path: '' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]
+2025-05-02 11:22:21,178 INFO: User 4 listed entries for path: 'Equipment History' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:152]

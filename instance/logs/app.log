@@ -1,0 +1,260 @@
+2025-07-08 16:59:06,745 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 16:59:06,761 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:102]
+2025-07-08 17:00:01,642 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:00:01,642 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:00:08,767 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:00:08,798 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:00:08,814 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:00:08,814 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:00:08,829 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:00:08,829 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:00:44,954 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:00:44,970 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:01:09,902 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:01:09,917 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:01:21,066 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:01:21,082 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:01:42,491 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:01:42,507 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:02:03,882 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:02:03,913 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:03:38,840 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:03:38,871 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:03:58,075 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:03:58,106 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:17:59,186 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:17:59,201 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:18:51,802 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:18:51,836 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:19:13,340 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:19:13,363 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:19:14,037 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:19:14,054 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:19:23,428 ERROR: Unhandled application exception [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:66]
+Traceback (most recent call last):
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\auth\routes.py", line 63, in login
+    return render_template("pages/auth/login.html", form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\pages\auth\login.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\base.html", line 66, in top-level template code
+    {% include 'layouts/footer.html' %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\layouts\footer.html", line 3, in top-level template code
+    Kern Energy Nexus &copy; {{ now().year }}. All rights reserved.
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'datetime.datetime' object is not callable
+2025-07-08 17:27:25,180 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:27:25,203 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:27:25,953 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:27:25,968 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:27:27,003 ERROR: Unhandled application exception [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:66]
+Traceback (most recent call last):
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\auth\routes.py", line 63, in login
+    return render_template("pages/auth/login.html", form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\pages\auth\login.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\base.html", line 66, in top-level template code
+    {% include 'layouts/footer.html' %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\layouts\footer.html", line 3, in top-level template code
+    Kern Energy Nexus &copy; {{ now().year }}. All rights reserved.
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'datetime.datetime' object is not callable
+2025-07-08 17:29:36,649 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:29:36,670 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:29:37,371 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:29:37,386 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:29:38,253 ERROR: Unhandled application exception [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:66]
+Traceback (most recent call last):
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\auth\routes.py", line 63, in login
+    return render_template("pages/auth/login.html", form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\pages\auth\login.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\base.html", line 66, in top-level template code
+    {% include 'layouts/footer.html' %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\layouts\footer.html", line 3, in top-level template code
+    Kern Energy Nexus &copy; {{ now().year }}. All rights reserved.
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'datetime.datetime' object is not callable
+2025-07-08 17:29:40,155 ERROR: Unhandled application exception [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:66]
+Traceback (most recent call last):
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\auth\routes.py", line 63, in login
+    return render_template("pages/auth/login.html", form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\pages\auth\login.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\base.html", line 66, in top-level template code
+    {% include 'layouts/footer.html' %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\layouts\footer.html", line 3, in top-level template code
+    Kern Energy Nexus &copy; {{ now().year }}. All rights reserved.
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'datetime.datetime' object is not callable
+2025-07-08 17:29:42,328 ERROR: Unhandled application exception [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:66]
+Traceback (most recent call last):
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\auth\routes.py", line 63, in login
+    return render_template("pages/auth/login.html", form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\pages\auth\login.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\base.html", line 66, in top-level template code
+    {% include 'layouts/footer.html' %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\layouts\footer.html", line 3, in top-level template code
+    Kern Energy Nexus &copy; {{ now().year }}. All rights reserved.
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'datetime.datetime' object is not callable
+2025-07-08 17:31:58,340 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:31:58,357 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:31:59,025 INFO: Application logging configured. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:62]
+2025-07-08 17:31:59,041 INFO: Application factory setup complete. [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:103]
+2025-07-08 17:32:05,516 ERROR: Unhandled application exception [in F:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:66]
+Traceback (most recent call last):
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\auth\routes.py", line 63, in login
+    return render_template("pages/auth/login.html", form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\pages\auth\login.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\base.html", line 66, in top-level template code
+    {% include 'layouts/footer.html' %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\layouts\footer.html", line 3, in top-level template code
+    Kern Energy Nexus &copy; {{ now().year }}. All rights reserved.
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'datetime.datetime' object is not callable

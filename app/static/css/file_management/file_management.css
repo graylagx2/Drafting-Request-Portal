@@ -1,0 +1,218 @@
+/* static/css/file_management/file_management.css */
+/* Contains all styles previously inline in engineering_index.html */
+/* Google Drive styling applied ONLY to Action Bar, Breadcrumbs, File List Table */
+/* Added specific file type icons and refined table appearance */
+
+/* === Original Sidebar Styles (Unchanged) === */
+.sidebar-nav a, .sidebar-nav button { display: flex; align-items: center; padding: 0.6rem 0.75rem; font-size: 0.875rem; border-radius: 0.375rem; color: #374151; transition: background-color 0.2s ease, color 0.2s ease; }
+.sidebar-nav a:hover, .sidebar-nav button:hover { background-color: var(--nexus-gray); color: var(--nexus-blue); }
+.sidebar-nav a.active, .sidebar-nav #storage-folder-list li > .sidebar-tree-node.active {
+    background-color: #e0e7ff; color: var(--nexus-blue); font-weight: 600;
+}
+.sidebar-nav .icon-sm { width: 1.1rem; height: 1.1rem; margin-right: 0.75rem; flex-shrink: 0; }
+.sidebar-new-folder-btn {
+    display: flex; align-items: center; gap: 0.5rem; width: 100%; text-align: left;
+    margin-top: 0.5rem; padding: 0.5rem 0.75rem; font-size: 0.875rem; border-radius: 0.375rem;
+    color: #374151; background-color: #f3f4f6; border: 1px solid #e5e7eb; cursor: pointer;
+}
+ .sidebar-new-folder-btn:hover { background-color: #e5e7eb; }
+
+/* === MODIFIED Action Bar Button Styles (#main-action-bar > .action-bar-btn) === */
+#main-action-bar .action-bar-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #dadce0; /* Google Drive's subtle border color */
+  border-radius: 4px; /* Slightly rounded corners */
+  background-color: var(--nexus-white);
+  color: #3c4043; /* Google Drive's standard text color */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500; /* Medium weight */
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+#main-action-bar .action-bar-btn:hover {
+  background-color: #f8f9fa; /* Very light gray hover */
+  border-color: #dadce0;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+#main-action-bar .action-bar-btn i { /* Style Lucide icons within buttons */
+  width: 1rem; height: 1rem;
+  color: #5f6368; /* Google Drive's icon gray */
+}
+
+/* === MODIFIED File List Table Container (#file-list-container) === */
+#file-list-container {
+    border: 1px solid #dadce0; /* Match Drive's border */
+    border-radius: 8px; /* Slightly more rounded */
+    box-shadow: none; /* Drive has no shadow on the table container */
+    overflow: hidden; /* Needed for border-radius clipping */
+    margin-top: 1rem; /* Space below breadcrumbs */
+}
+
+/* === MODIFIED DCS/File List Table Styling (.dcs-file-list) === */
+/* Table Header */
+.dcs-file-list thead th {
+    background-color: var(--nexus-white); color: #5f6368; font-weight: 500;
+    font-size: 0.75rem; padding: 0.75rem 1rem; text-align: left;
+    border-bottom: 1px solid #dadce0; cursor: pointer; position: relative;
+    user-select: none; vertical-align: middle; text-transform: none; letter-spacing: normal;
+}
+/* FontAwesome Sort Icons (Ensure FontAwesome is loaded) */
+.dcs-file-list thead th .sort-icon {
+    font-family: 'Font Awesome 5 Free'; font-weight: 900; opacity: 0.6;
+    margin-left: 0.5rem; display: inline-block; transition: opacity 0.2s ease; font-size: 0.7rem;
+}
+.dcs-file-list thead th:hover .sort-icon { opacity: 1; }
+.dcs-file-list thead th.sort-asc .sort-icon::before { content: '\f0de'; } /* Up arrow */
+.dcs-file-list thead th.sort-desc .sort-icon::before { content: '\f0dd'; } /* Down arrow */
+/* Hide original Lucide sort icons if they exist in HTML */
+.dcs-file-list thead th i[data-lucide="arrow-up-down"],
+.dcs-file-list thead th i[data-lucide="arrow-up"],
+.dcs-file-list thead th i[data-lucide="arrow-down"] { display: none; }
+
+/* Table Body */
+.dcs-file-list tbody { background-color: var(--nexus-white); }
+.dcs-file-list tbody tr { border-bottom: 1px solid #e8eaed; transition: background-color 0.1s ease-out; }
+.dcs-file-list tbody tr:last-child { border-bottom: none; }
+.dcs-file-list tbody tr:hover { background-color: #f8f9fa; }
+/* Selected state */
+.dcs-file-list tbody tr.selected { background-color: #e8f0fe; }
+.dcs-file-list tbody tr.selected:hover { background-color: #e0eafc; }
+
+/* Table Body Cells */
+.dcs-file-list tbody td {
+    padding: 0.65rem 1rem; color: #3c4043; font-size: 0.8125rem; /* 13px */
+    border-bottom: none; vertical-align: middle; white-space: nowrap;
+}
+.dcs-file-list tbody td:first-child { white-space: normal; } /* Allow Name wrap */
+
+/* File/Folder Title Link in Table */
+.dcs-file-list .item-title {
+    font-weight: 400; color: #3c4043; cursor: pointer; display: inline-flex;
+    align-items: center; gap: 0.75rem;
+}
+.dcs-file-list .item-title:hover { text-decoration: none; color: var(--nexus-blue); }
+
+/* === File Type Icons === */
+.dcs-file-list .item-icon { /* Class applied by JS to the <i> tag */
+    width: 1.25rem; /* 20px */ height: 1.25rem; flex-shrink: 0;
+    font-size: 1.1rem; /* Adjust FontAwesome size */ line-height: 1;
+    text-align: center; color: #5f6368; /* Default icon color */
+}
+.dcs-file-list .item-icon.icon-folder { color: #5f6368; } /* Gray folder */
+.dcs-file-list .item-icon.icon-pdf { color: #db4437; } /* Red */
+.dcs-file-list .item-icon.icon-word { color: #4285f4; } /* Blue */
+.dcs-file-list .item-icon.icon-excel { color: #0f9d58; } /* Green */
+.dcs-file-list .item-icon.icon-powerpoint { color: #ff9800; } /* Orange/Yellow */
+.dcs-file-list .item-icon.icon-image { color: #9c27b0; } /* Purple */
+.dcs-file-list .item-icon.icon-archive { color: #f4b400; } /* Yellow/Gold */
+.dcs-file-list .item-icon.icon-file-alt { color: #5f6368; } /* Gray */
+
+/* Actions Column - Ellipsis Button */
+.dcs-file-list tbody td:last-child { text-align: right; padding-right: 0.5rem; }
+.dcs-file-list .action-menu-btn { /* Class applied by JS to the button */
+    background: transparent; border: none; color: #5f6368; padding: 0.5rem;
+    margin: -0.5rem 0.1rem; border-radius: 50%; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; opacity: 0;
+    transition: background-color 0.2s ease, opacity 0.1s ease-out;
+    vertical-align: middle;
+}
+.dcs-file-list tbody tr:hover .action-menu-btn { opacity: 1; }
+.dcs-file-list .action-menu-btn:hover { background-color: rgba(60,64,67,.08); }
+.dcs-file-list .action-menu-btn i { /* Style for Lucide icon inside */
+    width: 1.1rem; height: 1.1rem;
+}
+
+/* === Original Status Pills (Unchanged - Specific to DCS) === */
+.status-pill { display: inline-block; padding: 0.15rem 0.6rem; font-size: 0.7rem; font-weight: 600; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+.status-Draft { background-color: #e5e7eb; color: #4b5563; }
+.status-ForReview { background-color: #dbeafe; color: #1d4ed8; }
+.status-ForConstruction { background-color: #fef08a; color: #854d0e; }
+.status-AsBuilt { background-color: #dcfce7; color: #166534; }
+.status-Superseded { background-color: #fee2e2; color: #991b1b; }
+.status-Unknown { background-color: #f3f4f6; color: #6b7280; }
+
+/* === Original Checkout Indicator (Unchanged - Specific to DCS) === */
+.checkout-indicator { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; color: #6b7280; }
+.checkout-indicator i { color: #ef4444; }
+
+/* === Original Tabs and Search Container (Unchanged - Specific to DCS) === */
+.tabs-and-search-container {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #e5e7eb; margin-bottom: 1rem; padding-bottom: 0.5rem;
+}
+.tabs-container { display: flex; gap: 0.25rem; }
+.tab-button {
+    padding: 0.5rem 1rem; margin-right: 0; border-radius: 4px; border: 1px solid transparent;
+    font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease;
+    color: #4b5563; background-color: transparent;
+}
+.tab-button.active { color: var(--nexus-blue); background-color: #e0e7ff; font-weight: 600; }
+.tab-button:hover:not(.active) { background-color: var(--nexus-gray); color: var(--nexus-blue); }
+.tab-search-input {
+    padding: 0.45rem 0.75rem; font-size: 0.875rem; border: 1px solid #d1d5db;
+    border-radius: 0.375rem; max-width: 250px;
+}
+.tab-search-input:focus { outline: none; border-color: var(--nexus-blue); box-shadow: 0 0 0 2px rgba(16, 42, 67, 0.2); }
+.tabs-and-search-container .relative span { left: 0.5rem; }
+.tab-search-input.pl-8 { padding-left: 2rem; }
+
+/* === Original Tile Styles (Unchanged) === */
+.dashboard-tile-container { margin-top: 1.5rem; margin-bottom: 1.5rem; padding: 0; justify-content: start; gap: 1.5rem; }
+.tile { width: 220px; background-color: var(--nexus-white); border-radius: 1rem; padding: 2rem; text-align: center; box-shadow: var(--shadow-light); color: inherit; border: 1px solid transparent; transition: all 0.2s ease; text-decoration: none; }
+.tile:hover { transform: translateY(-6px); box-shadow: var(--shadow-medium); border-color: var(--nexus-blue); }
+.tile-icon { margin-bottom: 1rem; }
+.tile-icon i { width: 40px; height: 40px; color: var(--nexus-blue); }
+.tile-label { font-size: 1.1rem; font-weight: 600; color: #1f2937; }
+
+/* === Original Modal Styling (Unchanged) === */
+.modal-backdrop { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 40; }
+.modal-container { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.modal-content { background-color: white; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); padding: 1.5rem; width: 100%; max-width: md; }
+.modal-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: var(--nexus-blue); }
+.modal-body { margin-bottom: 1.5rem; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+.modal-content label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.875rem; }
+.modal-content input[type="text"], .modal-content textarea { width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.375rem; font-size: 0.875rem; }
+.modal-content input[type="text"]:focus, .modal-content textarea:focus { outline: none; border-color: var(--nexus-blue); box-shadow: 0 0 0 1px var(--nexus-blue); }
+.modal-content textarea { min-height: 80px; }
+.btn-secondary { background-color: #e5e7eb; color: #374151; border: 1px solid #d1d5db; padding: 0.75rem 1.5rem; border-radius: 0.375rem; font-weight: 500; cursor: pointer; transition: background-color 0.2s ease; }
+.btn-secondary:hover { background-color: #d1d5db; }
+.modal-actions .btn-primary {
+    background-color: var(--nexus-blue); color: white; padding: 0.75rem 1.5rem; border-radius: 0.375rem; font-weight: 500; cursor: pointer; transition: background-color 0.2s ease; border: none;
+}
+ .modal-actions .btn-primary:hover { background-color: #0d1f33; }
+
+/* === Original Context Menu Styling (Unchanged) === */
+#dcs-context-menu { min-width: 180px; }
+#dcs-context-menu li { display: block; width: 100%; text-align: left; }
+
+/* === MODIFIED Breadcrumbs (#archive-breadcrumbs) === */
+#archive-breadcrumbs {
+    display: flex; align-items: center; gap: 0.25rem; font-size: 0.875rem;
+    color: #5f6368; margin-bottom: 1rem; padding-bottom: 0; border-bottom: none;
+}
+#archive-breadcrumbs a.breadcrumb-link {
+    color: #5f6368; text-decoration: none; padding: 0.25rem 0.5rem;
+    border-radius: 4px; transition: background-color 0.2s ease;
+}
+#archive-breadcrumbs a.breadcrumb-link:hover { background-color: #f1f3f4; text-decoration: none; }
+#archive-breadcrumbs span:not(.mx-1) { color: #202124; font-weight: 400; padding: 0.25rem 0.5rem; }
+#archive-breadcrumbs .fa-hdd { color: #5f6368; margin-right: 0.25rem; font-size: 0.9em; }
+#archive-breadcrumbs .mx-1 { color: #9aa0a6; padding: 0 0.2rem; }
+
+/* === Original Empty State (Unchanged) === */
+#dcs-empty-state {
+    color: #6b7280; text-align: center; padding: 2rem 1rem;
+}
+
+/* === Original Suggested Section (Unchanged) === */
+#suggested-section {
+    background-color: #f9fafb; margin-bottom: 1.5rem; padding: 1rem;
+    border-radius: 8px; border: 1px solid #e5e7eb; text-align: center;
+}
+#suggested-section h3 { font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem; }
+#suggested-section p { font-size: 0.8rem; color: #6b7280; }
+#suggested-section a { color: var(--nexus-blue); text-decoration: none; }
+#suggested-section a:hover { text-decoration: underline; }

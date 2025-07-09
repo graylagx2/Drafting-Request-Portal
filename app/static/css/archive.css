@@ -1,0 +1,62 @@
+/* archive.css - Accordion styling for ticket archive */
+
+.archive-section {
+    background: var(--nexus-white);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    max-width: 720px;
+    /* Increased by 20% from 600px */
+    margin: 2rem auto;
+}
+
+.archive-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--nexus-blue);
+    text-align: center;
+}
+
+.archive-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.archive-item {
+    background: var(--nexus-white);
+    transition: background 0.2s;
+}
+
+.archive-item:hover {
+    background: var(--nexus-gray);
+}
+
+.archive-ticket {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chevron {
+    transition: transform 0.2s;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Sublist items */
+.sublist .archive-item {
+    background: #f9fafb;
+    margin-left: 0.5rem;
+}
+
+.file-item.directory::before {
+    content: "📁 ";
+}
+
+.file-item.file::before {
+    content: "📄 ";
+}

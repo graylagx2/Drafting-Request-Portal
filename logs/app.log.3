@@ -1,0 +1,96 @@
+2025-05-06 11:10:38,037 INFO: list_entries: Sanitized path for LocalFSAdapter: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:92]
+2025-05-06 11:10:38,284 INFO: list_entries: Found 12 entries in filesystem for path '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:95]
+2025-05-06 11:10:38,309 INFO: list_entries: Potential file keys for DB lookup (6 keys): ['QC-Package.pdf', 'WO120951-QC-Package.pdf', 'Flange_Assembly.pdf', 'Hydrotest_Form_2023-10-19.pdf', '13ASM_Metals_Handbook_Vol_13A.pdf', 'EP_5-1-5_Piping_System_Line_Numbering.pdf'] [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:104]
+2025-05-06 11:10:38,330 INFO: list_entries: Querying database for metadata for 6 potential file keys. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:108]
+2025-05-06 11:10:38,343 INFO: list_entries: Database query returned 0 matching DocumentRevision records. [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:117]
+2025-05-06 11:10:38,356 INFO: list_entries: Successfully prepared 12 entries for response. User 2, Path: '' [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:168]
+2025-05-06 11:10:38,362 INFO: --- list_entries: END --- [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:169]
+2025-05-06 12:05:59,060 INFO: Role check for user 2: Role attribute is 'drafter' (type: <class 'str'>). Is it in required roles ['Any Authenticated']? -> False [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:136]
+2025-05-06 12:05:59,067 INFO: Role check for user 2: Role attribute is 'drafter' (type: <class 'str'>). Is it in required roles ['Any Authenticated']? -> False [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py:136]
+2025-05-06 12:05:59,077 ERROR: Unhandled Exception [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:48]
+Traceback (most recent call last):
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py", line 469, in list_root_folders
+    granted, error_msg = check_permission('read')
+    ^^^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable bool object
+2025-05-06 12:05:59,111 ERROR: Unhandled Exception [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:48]
+Traceback (most recent call last):
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\file_management.py", line 153, in list_entries
+    granted, error_msg = check_permission('read')
+    ^^^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable bool object
+2025-05-06 12:36:13,759 ERROR: Unhandled Exception [in D:\DEV\Flask\new\Kern-Energy-Nexus\app\__init__.py:48]
+Traceback (most recent call last):
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\new\Kern-Energy-Nexus\app\routes\dashboard.py", line 29, in index
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\pages\dashboard\index.html", line 1, in top-level template code
+    {% extends 'base.html' %} {% block head %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\base.html", line 45, in top-level template code
+    {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\new\Kern-Energy-Nexus\app\templates\pages\dashboard\index.html", line 55, in block 'content'
+    <div class="mt-6">{% include 'file_browser/_file_browser.html' %}</div>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 64, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 98, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: file_browser/_file_browser.html

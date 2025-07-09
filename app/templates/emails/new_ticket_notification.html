@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/email_styles.css') }}" />
+    <title>Nexus Drafting Request</title>
+  </head>
+  <body>
+    <div class="email-container">
+      <h2>Nexus Drafting Request: Priority {{ priority }}</h2>
+      <table class="email-table">
+        <thead>
+          <tr>
+            <th colspan="2">Drafting Request Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>User Name</th>
+            <td>{{ current_user.actual_name }}</td>
+          </tr>
+          <tr>
+            <th>Review Engineer</th>
+            <td>{{ review_engineer.actual_name if review_engineer else "N/A" }}</td>
+          </tr>
+          <tr>
+            <th>Ticket Number</th>
+            <td>{{ ticket_number }}</td>
+          </tr>
+          <tr>
+            <th>Work Order / AFE</th>
+            <td>{{ work_order or "—" }}</td>
+          </tr>
+          <tr>
+            <th>Request Type</th>
+            <td>{{ request_type }}</td>
+          </tr>
+          <tr>
+            <th>Unit</th>
+            <td>{{ unit }}</td>
+          </tr>
+          <tr>
+            <th>Description</th>
+            <td>{{ description }}</td>
+          </tr>
+          <tr>
+            <th>Submitted On</th>
+            <td>{{ created_at.strftime('%b %d, %Y') }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

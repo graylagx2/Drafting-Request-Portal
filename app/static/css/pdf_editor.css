@@ -1,0 +1,510 @@
+/* static/css/pdf_editor.css */
+
+/* Root and font */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+  background: var(--nexus-gray, #f5f7fa);
+  color: var(--nexus-blue, #102a43);
+}
+
+/* Modal container and header */
+#modal-pdf-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--nexus-gray, #f5f7fa);
+  z-index: 100;
+}
+.modal-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem 0.5rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: var(--nexus-white, #fff);
+  min-height: 56px;
+}
+.close-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background 0.2s;
+  font-size: 1.5rem;
+}
+.close-btn:hover {
+  background: #f3f4f6;
+  color: #e11d48;
+}
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--nexus-blue, #102a43);
+  margin: 0;
+}
+.modal-main-content {
+  display: flex;
+  height: calc(100% - 56px);
+}
+
+/* ----------------------------------
+   LEFT TOOL CHEST (qcConsole)
+---------------------------------- */
+#qcConsole {
+  position: relative;
+  width: 320px;
+  min-width: 260px;
+  max-width: 360px;
+  flex-shrink: 0;
+  background: var(--nexus-white, #fff);
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  box-shadow: 2px 0 8px rgba(16, 42, 67, 0.04);
+  z-index: 10;
+}
+#qcConsole.collapsed {
+  width: 24px !important;
+  min-width: 24px !important;
+  max-width: 24px !important;
+  border-right: none;
+}
+.qc-scrollable {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+.qc-actions {
+  flex-shrink: 0;
+  padding: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+  background-color: var(--nexus-white, #fff);
+  text-align: center;
+}
+
+/* Tool Sections */
+.tool-section {
+  margin: 0.7rem 0.5rem 0.5rem 0.5rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 4px rgba(16, 42, 67, 0.04);
+  padding: 0.7rem 0.7rem 0.3rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.tool-section-header {
+  font-weight: 600;
+  color: var(--nexus-blue, #102a43);
+  margin-bottom: 0.3rem;
+  font-size: 0.98rem;
+}
+.tool-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.tool-config {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+  flex-wrap: wrap;
+}
+.tool-config label {
+  font-size: 0.92rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+.tool-config select {
+  border: 1px solid #cbd5e1;
+  border-radius: 0.375rem;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.92rem;
+  background: #fff;
+  transition: border 0.2s;
+  min-width: 70px;
+}
+.btn-tool {
+  background: var(--nexus-accent-green, #49c5b6);
+  color: var(--nexus-white, #fff);
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.35rem 0.9rem;
+  font-weight: 500;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.2rem;
+  align-self: flex-start;
+}
+.btn-tool:hover {
+  background: var(--nexus-blue, #102a43);
+  color: var(--nexus-white, #fff);
+}
+
+/* Clear button */
+#clearHighlightsBtn {
+  margin: 0.7rem 0.5rem 0.5rem 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Log */
+#mapLog {
+  font-size: 0.8rem;
+  padding: 0.5rem 1.25rem;
+  color: #6b7280;
+  min-height: 1.5em;
+  background: #f7fafc;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ----------------------------------
+   COMMENT THREAD
+---------------------------------- */
+.comment-thread-section {
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 4px rgba(16, 42, 67, 0.04);
+  padding: 0.7rem 0.7rem 0.3rem 0.7rem;
+  min-height: 180px;
+  max-height: 240px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.comment-thread-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+.comment-badge {
+  display: inline-block;
+  min-width: 1.5em;
+  height: 1.5em;
+  background: var(--nexus-accent-green, #49c5b6);
+  color: var(--nexus-white, #fff);
+  border-radius: 9999px;
+  font-size: 0.85em;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.5em;
+  margin-left: 0.5em;
+  box-shadow: 0 1px 2px rgba(16, 42, 67, 0.08);
+}
+.comment-badge.hidden {
+  display: none;
+}
+.comment-thread {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  margin-bottom: 0.5rem;
+  max-height: 120px;
+}
+.comment-item {
+  background: #f1f5f9;
+  border-radius: 0.375rem;
+  margin-bottom: 0.3rem;
+  padding: 0.4rem 0.7rem;
+  box-shadow: 0 1px 2px rgba(16, 42, 67, 0.03);
+}
+.comment-item .font-semibold {
+  color: var(--nexus-blue, #102a43);
+}
+.comment-placeholder {
+  color: #b0b7c3;
+  font-style: italic;
+}
+.comment-form {
+  margin-top: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.comment-input {
+  resize: none;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.375rem;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.95rem;
+  background: #fff;
+  transition: border 0.2s;
+}
+.comment-input:focus {
+  border-color: var(--nexus-blue, #102a43);
+  outline: none;
+}
+
+/* ----------------------------------
+   Approve/Revision Buttons
+---------------------------------- */
+#toolActionControls {
+  flex-shrink: 0;
+  padding: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+  background-color: var(--nexus-white, #fff);
+  text-align: center;
+}
+#toolActionControls button {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.65rem;
+  border-radius: 0.375rem;
+  margin-bottom: 0.4rem;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+}
+#toolActionControls button:last-child {
+  margin-bottom: 0;
+}
+#toolActionControls .btn-primary:disabled,
+#toolActionControls .btn-primary.opacity-50 {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Mid-height vertical toggle tab */
+#toolChestToggle {
+  position: absolute;
+  top: 50%;
+  right: -6px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 60px;
+  background-color: var(--nexus-blue, #102a43);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+#toggleIcon {
+  color: var(--nexus-white, #fff);
+  font-size: 16px;
+}
+
+/* When collapsed, hide everything except the toggle */
+#qcConsole.collapsed .sidebar-header,
+#qcConsole.collapsed .tool-section,
+#qcConsole.collapsed button:not(#toolChestToggle),
+#qcConsole.collapsed #mapLog,
+#qcConsole.collapsed #toolActionControls,
+#qcConsole.collapsed .comment-thread-section,
+#qcConsole.collapsed .qc-scrollable {
+  display: none;
+}
+
+/* ----------------------------------
+   RIGHT SIDE / PDF VIEWER
+---------------------------------- */
+#pdfContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.pdf-canvas-wrapper {
+  flex: 1 1 auto;
+  position: relative;
+  overflow: visible;
+  min-height: 0;
+}
+#pdfCanvasWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: auto;                    /* remove the right anchor */
+  bottom: auto;                   /* remove the bottom anchor */
+  width: auto;  
+  height: calc(100% - 48px);
+  cursor: default;
+}
+#mapPdfCanvas,
+#annotationCanvas,
+#formLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#annotationCanvas {
+  pointer-events: auto;
+  z-index: 10;
+}
+
+/* Sticky bottom PDF nav bar */
+#pageNavControls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  background: var(--nexus-white, #fff);
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 20;
+}
+#pageNavControls button {
+  background-color: var(--nexus-blue, #102a43);
+  color: var(--nexus-white, #fff);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+#pageNavControls button:hover {
+  background-color: #163457;
+}
+.page-number-display {
+  color: var(--nexus-blue, #102a43);
+  font-weight: 600;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* --- Annotation Selection and Snap UI --- */
+.annotation-selected {
+  outline: 2px solid #facc15 !important; /* yellow-400 */
+  box-shadow: 0 0 0 2px #fde68a;
+  z-index: 100;
+}
+.annotation-anchor {
+  width: 12px;
+  height: 12px;
+  background: #facc15;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 101;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(16, 42, 67, 0.12);
+}
+.annotation-anchor:hover {
+  background: #f59e42;
+}
+.annotation-snap-guide {
+  position: absolute;
+  background: #38bdf8;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* Tool‐icon toolbar */
+/* --- New Tool‐Icon Toolbar & Settings UI --- */
+.tool-icons {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+.tool-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.375rem;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.tool-icon.active {
+  background: var(--nexus-blue, #102a43);
+}
+.tool-icon.active svg {
+  stroke: #fff;
+}
+
+.tool-settings {
+  padding: 0.5rem;
+}
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.settings-group.hidden {
+  display: none;
+}
+.settings-header {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.color-picker {
+  display: flex;
+  gap: 0.4rem;
+}
+.color-swatch {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 2px rgba(16, 42, 67, 0.1);
+  transition: transform 0.1s;
+}
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+.color-swatch.selected {
+  border-color: var(--nexus-blue, #102a43);
+}
+
+.thickness-slider {
+  width: 100%;
+  cursor: pointer;
+}
+
+.btn-clear {
+  width: calc(100% - 1rem);
+  margin: 0.5rem;
+  padding: 0.5rem;
+  background: #e53e3e;
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.btn-clear:hover {
+  background: #c53030;
+}
+
+/* GPU‐accelerated zoom wrapper */
+#zoomWrapper {
+  transform-origin: top left;
+  transition: transform 0.2s ease-out;
+}

@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{# Removed set main_class - layout is handled by the flex container now #}
+
+{% block head %}
+  {{ super() }} {# Includes styles from base.html (e.g., main.css, Tailwind) #}
+
+  {# Original Dashboard CSS #}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+{% endblock %}
+
+{% block content %}
+{# Add body data attributes needed by file browser JS #}
+<body data-current-user="{{ current_user.username if current_user else '' }}"
+      data-user-roles="{{ current_user.roles | join(',') if current_user and current_user.roles else '' }}">
+
+{# Use the File Browser's Flex Layout to accommodate sidebar #}
+<div class="flex h-[calc(100vh-4rem)] bg-white border-t border-gray-200">
+
+    {# 1. Include the File Browser Sidebar Component #}
+    {% include 'components/file_browser/file_browser_sidebar.html' %}
+
+    {# 2. Main Content Area (using original padding and overflow) #}
+    <main class="flex-1 p-6 overflow-y-auto">
+
+        {# Add dynamic title element needed by file browser JS #}
+        {# You can set a default title here if desired #}
+        <h1 id="main-content-title" class="text-2xl font-semibold text-gray-800 mb-6">Engineering Dashboard</h1>
+
+        {# Original Dashboard Tiles Section #}
+        <section class="dashboard-tile-container mb-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+             <a href="{{ url_for('engineering.project_overview') }}" class="tile flex flex-col items-center justify-center">
+                 <div class="tile-icon mb-2"> <i data-lucide="hard-hat" class="w-8 h-8"></i> </div>
+                 <div class="tile-label">Project Controls</div>
+             </a>
+             <a href="#" id="open-engineer-tickets-modal" class="tile flex flex-col items-center justify-center">
+                 <div class="tile-icon mb-2"> <i data-lucide="list-checks" class="w-8 h-8"></i> </div>
+                 <div class="tile-label">My Drafting &amp; Design Review Tickets</div>
+             </a>
+             {# Add other original tiles here if they existed #}
+        </section>
+
+        {# 3. Include the Main File Browser UI Component #}
+        {# This adds the action bar, breadcrumbs, table container, status divs, modals etc. #}
+        <div class="mt-8"> {# Add some margin before the file browser #}
+            {% include 'components/file_browser/file_browser.html' %}
+        </div>
+
+        {# Original Recent Activity Feed Section #}
+        <section class="dashboard-feed mt-8"> {# Keep original margin-top #}
+            <h2 class="text-xl font-semibold mb-4">Recent Activity</h2>
+            <div class="feed-list space-y-4">
+                {% for item in feed_items %}
+                <div class="feed-item flex items-center justify-between p-4 rounded shadow">
+                     <p class="text-base">{{ item.message }}</p>
+                     <span class="text-sm">{{ item.timestamp.strftime('%b %d, %Y %I:%M %p') }}</span>
+                </div>
+                {% else %}
+                <p class="no-activity text-center text-gray-500">No recent activity.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+    </main> {# End main content area #}
+
+</div> {# End flex layout #}
+</body>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }} {# Includes scripts from base.html #}
+
+  {# Load File Browser App Logic (Handles sidebar/main component interactions) #}
+  <script type="module" src="{{ url_for('static', filename='js/file_management/app.js') }}"></script>
+
+  {# Load Original Engineer Ticket Modal Logic #}
+  <script type="module">
+      try {
+          // Dynamically import if the module exists
+          const { openEngineerTicketModal } = await import("/static/js/engineer_ticket_modal.js");
+
+          const modalTrigger = document.getElementById("open-engineer-tickets-modal");
+          if (modalTrigger && typeof openEngineerTicketModal === 'function') {
+              modalTrigger.addEventListener("click", (e) => {
+                  e.preventDefault();
+                  console.log("Opening engineer ticket modal...");
+                  openEngineerTicketModal("{{ url_for('engineering.engineer_tickets_modal') }}");
+              });
+          } else if (!modalTrigger) {
+               console.warn("Engineer tickets modal trigger button not found.");
+          } else {
+               console.warn("openEngineerTicketModal function not found or not exported correctly.");
+          }
+      } catch (err) {
+            console.error("Error loading or executing engineer_ticket_modal.js:", err);
+      }
+  </script>
+
+  {# Load and Initialize Lucide Icons #}
+  <script>
+      function initializeIcons() {
+          // Ensure Lucide library is loaded before calling createIcons
+          if (typeof lucide !== 'undefined') {
+              try {
+                  // Use requestAnimationFrame to potentially defer execution slightly,
+                  // ensuring included component elements are parsed.
+                  requestAnimationFrame(() => {
+                      console.log("Attempting to initialize Lucide icons...");
+                      lucide.createIcons();
+                      console.log("Lucide icons initialized.");
+                  });
+              } catch (error) { console.error("Error creating Lucide icons:", error); }
+          } else {
+              // Retry or log error if Lucide isn't loaded yet
+              console.warn("Lucide library not available when initializeIcons called.");
+          }
+      }
+
+      // Function to load Lucide dynamically if needed, then initialize
+      function loadLucideAndInit() {
+          if (typeof lucide === 'undefined') {
+              const script = document.createElement('script');
+              script.src = "https://unpkg.com/lucide@latest";
+              script.onload = initializeIcons; // Init icons once script is loaded
+              script.onerror = () => console.error("Failed to load Lucide script.");
+              document.body.appendChild(script);
+          } else {
+              initializeIcons(); // Already loaded
+          }
+      }
+
+      if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', loadLucideAndInit);
+      } else {
+          // Already loaded
+          loadLucideAndInit();
+      }
+  </script>
+{% endblock %}

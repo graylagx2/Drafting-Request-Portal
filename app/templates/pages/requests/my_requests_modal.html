@@ -1,0 +1,293 @@
+<!-- Modal Backdrop -->
+<div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40"></div>
+
+<!-- Modal Container -->
+<div
+  id="modal-container"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
+>
+  <div
+    class="bg-[var(--nexus-white)] rounded-2xl shadow-2xl w-[95vw] h-[90vh] p-6 relative overflow-y-auto"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+  >
+    {% set active_requests = requests | selectattr("status", "ne", "Completed")
+    | list %} {% set completed_requests = requests | selectattr("status",
+    "equalto", "Completed") | list %}
+
+    <!-- Header -->
+    <div class="flex flex-col gap-4 mb-4">
+      <div class="flex justify-between items-center">
+        <h2
+          id="modal-title"
+          class="text-2xl font-bold text-[var(--nexus-blue)]"
+        >
+          My Tickets
+        </h2>
+        <button
+          id="close-modal"
+          aria-label="Close modal"
+          class="text-gray-400 hover:text-gray-600 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+      <!-- Work Order Search -->
+      <div>
+        <input
+          id="workorder-search"
+          type="text"
+          placeholder="Search by WO / AFE..."
+          class="w-full p-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--nexus-blue)] transition"
+        />
+      </div>
+      <!-- Tab Navigation -->
+      <div class="flex border-b border-gray-300">
+        <button
+          id="tab-my-tickets"
+          class="py-2 px-4 text-[var(--nexus-blue)] font-bold border-b-2 border-[var(--nexus-blue)] focus:outline-none"
+        >
+          My Tickets
+        </button>
+        <button
+          id="tab-completed-tickets"
+          class="py-2 px-4 text-gray-500 hover:text-[var(--nexus-blue)] border-b-2 border-transparent focus:outline-none"
+        >
+          Completed Tickets
+        </button>
+      </div>
+    </div>
+
+    <!-- My Tickets Container (default) -->
+    <div id="my-tickets">
+      {% if active_requests %}
+      <!-- Table Container for My Tickets -->
+      <div class="overflow-x-auto border rounded-lg shadow-sm">
+        <table
+          class="min-w-full text-sm text-left"
+          id="requests-table-active"
+          data-sort-dir="asc"
+        >
+          <thead
+            class="sticky top-0 z-10 text-sm bg-[var(--nexus-blue)] text-[var(--nexus-white)]"
+          >
+            <tr>
+              <th class="px-4 py-2">Ticket #</th>
+              <th class="px-4 py-2">WO / AFE</th>
+              <th class="px-4 py-2">Type</th>
+              <!-- Priority is sortable -->
+              <th class="px-4 py-2 cursor-pointer sortable" data-index="3">
+                Priority (1–6)
+                <span class="ml-1 text-xs opacity-75">↕</span>
+              </th>
+              <th class="px-4 py-2">Description</th>
+              <th class="px-4 py-2">Engineer</th>
+              <th class="px-4 py-2">Status</th>
+              <!-- Submitted is sortable -->
+              <th class="px-4 py-2 cursor-pointer sortable" data-index="7">
+                Submitted
+                <span class="ml-1 text-xs opacity-75">↕</span>
+              </th>
+              <th class="px-4 py-2">Files</th>
+            </tr>
+          </thead>
+          <tbody class="bg-[var(--nexus-white)]" id="active-table-body">
+            {% for req in active_requests %}
+            <tr class="border-b hover:bg-gray-50 transition">
+              <td
+                class="px-4 py-3 font-semibold text-[var(--nexus-blue)] whitespace-nowrap"
+              >
+                {{ req.ticket_number }}
+              </td>
+              <td class="px-4 py-3 text-gray-800">
+                {{ req.work_order or req.moc or '—' }}
+              </td>
+              <td class="px-4 py-3 text-gray-800">
+                {{ req.request_type|capitalize }}
+              </td>
+              <td class="px-4 py-3 text-gray-900 font-bold">
+                {{ req.priority }}
+              </td>
+              <!-- Description with tooltip on hover -->
+              <td class="px-4 py-3 text-gray-800 relative group">
+                <div class="truncate max-w-[300px]">{{ req.description }}</div>
+                <div
+                  class="absolute z-20 left-0 top-full mt-1 w-96 p-2 bg-white border border-gray-300 shadow-lg rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                >
+                  <p class="text-gray-900 text-sm">{{ req.description }}</p>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-gray-800">
+                {{ req.review_engineer.actual_name if req.review_engineer else
+                '—' }}
+              </td>
+              <td class="px-4 py-3">
+                <span
+                  class="inline-block px-2 py-1 text-xs font-medium rounded-full {% if req.status == 'Pending' %}bg-yellow-100 text-yellow-800 {% elif req.status == 'In Review' %}bg-blue-100 text-blue-800 {% elif req.status == 'Approved' %}bg-green-100 text-green-800 {% elif req.status == 'Rejected' %}bg-red-100 text-red-800 {% else %}bg-gray-200 text-gray-700{% endif %}"
+                >
+                  {{ req.status }}
+                </span>
+              </td>
+              <td class="px-4 py-3 text-gray-600 whitespace-nowrap">
+                {{ req.created_at.strftime('%b %d, %Y') }}
+              </td>
+              <td class="px-4 py-3">
+                {% if req.attachments %}
+                <details class="transition">
+                  <summary
+                    class="cursor-pointer text-[var(--nexus-accent-green)] hover:underline"
+                  >
+                    View ({{ req.attachments|length }})
+                  </summary>
+                  <ul class="mt-1 ml-4 list-disc text-xs text-gray-700">
+                    {% for file in req.attachments %}
+                    <li>
+                      <a
+                        href="{{ url_for('static', filename=file.file_path) }}"
+                        data-file-url="{{ url_for('static', filename=file.file_path) }}"
+                        class="file-preview-link hover:underline"
+                      >
+                        {{ file.file_path.split('/')[-1] }}
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </details>
+                {% else %}
+                <span class="text-gray-400 text-sm">—</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="text-gray-600 mt-6">No tickets found.</p>
+      {% endif %}
+    </div>
+
+    <!-- Completed Tickets Container (initially hidden) -->
+    <div id="completed-tickets" class="hidden">
+      {% if completed_requests %}
+      <!-- Table Container for Completed Tickets -->
+      <div class="overflow-x-auto border rounded-lg shadow-sm">
+        <table
+          class="min-w-full text-sm text-left"
+          id="requests-table-completed"
+          data-sort-dir="asc"
+        >
+          <thead
+            class="sticky top-0 z-10 text-sm bg-[var(--nexus-blue)] text-[var(--nexus-white)]"
+          >
+            <tr>
+              <th class="px-4 py-2">Ticket #</th>
+              <th class="px-4 py-2">WO / AFE</th>
+              <th class="px-4 py-2">Type</th>
+              <!-- Priority is sortable -->
+              <th class="px-4 py-2 cursor-pointer sortable" data-index="3">
+                Priority (1–6)
+                <span class="ml-1 text-xs opacity-75">↕</span>
+              </th>
+              <th class="px-4 py-2">Description</th>
+              <th class="px-4 py-2">Engineer</th>
+              <th class="px-4 py-2">Status</th>
+              <!-- Submitted is sortable -->
+              <th class="px-4 py-2 cursor-pointer sortable" data-index="7">
+                Submitted
+                <span class="ml-1 text-xs opacity-75">↕</span>
+              </th>
+              <th class="px-4 py-2">Files</th>
+            </tr>
+          </thead>
+          <tbody class="bg-[var(--nexus-white)]" id="completed-table-body">
+            {% for req in completed_requests %}
+            <tr class="border-b hover:bg-gray-50 transition">
+              <td
+                class="px-4 py-3 font-semibold text-[var(--nexus-blue)] whitespace-nowrap"
+              >
+                {{ req.ticket_number }}
+              </td>
+              <td class="px-4 py-3 text-gray-800">
+                {{ req.work_order or req.moc or '—' }}
+              </td>
+              <td class="px-4 py-3 text-gray-800">
+                {{ req.request_type|capitalize }}
+              </td>
+              <td class="px-4 py-3 text-gray-900 font-bold">
+                {{ req.priority }}
+              </td>
+              <!-- Description with tooltip on hover -->
+              <td class="px-4 py-3 text-gray-800 relative group">
+                <div class="truncate max-w-[300px]">{{ req.description }}</div>
+                <div
+                  class="absolute z-20 left-0 top-full mt-1 w-96 p-2 bg-white border border-gray-300 shadow-lg rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                >
+                  <p class="text-gray-900 text-sm">{{ req.description }}</p>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-gray-800">
+                {{ req.review_engineer.actual_name if req.review_engineer else
+                '—' }}
+              </td>
+              <td class="px-4 py-3">
+                <span
+                  class="inline-block px-2 py-1 text-xs font-medium rounded-full {% if req.status == 'Pending' %}bg-yellow-100 text-yellow-800 {% elif req.status == 'In Review' %}bg-blue-100 text-blue-800 {% elif req.status == 'Approved' %}bg-green-100 text-green-800 {% elif req.status == 'Rejected' %}bg-red-100 text-red-800 {% else %}bg-gray-200 text-gray-700{% endif %}"
+                >
+                  {{ req.status }}
+                </span>
+              </td>
+              <td class="px-4 py-3 text-gray-600 whitespace-nowrap">
+                {{ req.created_at.strftime('%b %d, %Y') }}
+              </td>
+              <td class="px-4 py-3">
+                {% if req.attachments %}
+                <details class="transition">
+                  <summary
+                    class="cursor-pointer text-[var(--nexus-accent-green)] hover:underline"
+                  >
+                    View ({{ req.attachments|length }})
+                  </summary>
+                  <ul class="mt-1 ml-4 list-disc text-xs text-gray-700">
+                    {% for file in req.attachments %}
+                    <li>
+                      <a
+                        href="{{ url_for('static', filename=file.file_path) }}"
+                        data-file-url="{{ url_for('static', filename=file.file_path) }}"
+                        class="file-preview-link hover:underline"
+                      >
+                        {{ file.file_path.split('/')[-1] }}
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </details>
+                {% else %}
+                <span class="text-gray-400 text-sm">—</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="text-gray-600 mt-6">No completed tickets found.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>

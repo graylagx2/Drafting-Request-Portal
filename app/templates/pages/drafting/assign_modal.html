@@ -1,0 +1,23 @@
+<!-- templates/pages/drafting/assign_modal.html -->
+<div id="assign-modal-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl w-96 p-6 relative">
+      <h3 class="text-xl font-bold mb-4">Assign Ticket {{ ticket.ticket_number }}</h3>
+      <form id="assign-form" action="{{ url_for('drafting.assign_ticket') }}" method="POST">
+        <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+        <div class="mb-4">
+          <label for="drafter_id" class="block text-gray-700 font-medium mb-2">Select Drafter:</label>
+          <select name="drafter_id" id="drafter_id" class="w-full border border-gray-300 rounded p-2">
+            <option value="" disabled selected>Select a Drafter</option>
+            {% for drafter in drafters %}
+            <option value="{{ drafter.id }}">{{ drafter.actual_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="flex justify-end space-x-4">
+          <button type="button" id="assign-cancel-btn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Assign</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

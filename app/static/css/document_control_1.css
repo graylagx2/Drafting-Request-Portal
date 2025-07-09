@@ -1,0 +1,154 @@
+/* static/css/document_control_1.css */
+/* Consolidated Drive-layout + Drive UI for the engineering dashboard */
+
+.dashboard-wrapper.dual-sidebar-layout {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 4rem);
+  margin: 0;
+  padding: 0;
+}
+
+/* Mini Icon Sidebar */
+.sidebar-mini {
+  flex-shrink: 0;
+  width: 4rem;
+  background-color: var(--nexus-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+}
+.sidebar-mini .icon-btn,
+.sidebar-mini .avatar-btn {
+  background: none;
+  border: none;
+  margin: 0.75rem 0;
+  cursor: pointer;
+  color: #fff;
+}
+.sidebar-mini .avatar-btn {
+  margin-top: auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--nexus-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar-mini .avatar-initials {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Main Sidebar */
+.sidebar-main {
+  flex-shrink: 0;
+  width: 16rem;
+  background-color: var(--nexus-white);
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-main > div,
+.sidebar-main > nav,
+.sidebar-main > div:last-child {
+  padding: 0.75rem 1rem;
+}
+.sidebar-main > div {
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar-main nav {
+  flex: 1;
+  overflow-y: auto;
+}
+.folder-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #4b5563;
+  transition: background var(--transition-speed), color var(--transition-speed);
+}
+.folder-item.active,
+.folder-item:hover {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+/* File Browser & Drive UI */
+.drive-container {
+  background: var(--nexus-white);
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.drive-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+.btn-action {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background var(--transition-speed);
+}
+.btn-action:hover {
+  background: #f5f7fa;
+}
+
+/* Search & Breadcrumbs */
+#dc-search,
+#drive-search {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.375rem;
+}
+#dc-breadcrumbs,
+#drive-breadcrumbs {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  border-bottom: 1px solid #e2e8f0;
+}
+#dc-breadcrumbs span,
+#drive-breadcrumbs span {
+  cursor: pointer;
+}
+#dc-breadcrumbs span:hover,
+#drive-breadcrumbs span:hover {
+  color: var(--nexus-accent-green);
+  text-decoration: underline;
+}
+
+/* Grid & Table layouts */
+#dc-grid,
+#fb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+#dc-table th,
+#dc-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.875rem;
+}
+#dc-table thead {
+  background-color: #f3f4f6;
+}

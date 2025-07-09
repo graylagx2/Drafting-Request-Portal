@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+  <h2 class="text-2xl font-bold text-nexus-blue mb-6">Document Checkout Tracker</h2>
+
+  {% if checkouts %}
+  <div class="overflow-auto rounded shadow bg-white">
+    <table class="min-w-full text-sm text-left">
+      <thead class="bg-nexus-blue text-white">
+        <tr>
+          <th class="p-3">Drawing Number</th>
+          <th class="p-3">Title</th>
+          <th class="p-3">Project</th>
+          <th class="p-3">Checked Out By</th>
+          <th class="p-3">Date</th>
+          <th class="p-3">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for doc in checkouts %}
+        <tr class="border-b hover:bg-gray-50">
+          <td class="p-3 font-semibold">{{ doc.number }}</td>
+          <td class="p-3">{{ doc.title }}</td>
+          <td class="p-3">{{ doc.project_name or '—' }}</td>
+          <td class="p-3">{{ doc.user.actual_name }}</td>
+          <td class="p-3">{{ doc.checked_out_at.strftime('%Y-%m-%d') }}</td>
+          <td class="p-3">
+            <span class="px-2 py-1 rounded text-white 
+              {% if doc.status == 'In Use' %} bg-yellow-500
+              {% elif doc.status == 'Returned' %} bg-green-500
+              {% else %} bg-gray-400 {% endif %}">
+              {{ doc.status }}
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="text-gray-600">No documents currently checked out.</p>
+  {% endif %}
+</div>
+{% endblock %}

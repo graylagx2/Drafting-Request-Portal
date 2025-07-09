@@ -1,0 +1,130 @@
+/* static/css/dashboard.css */
+
+/* Overall Dashboard Wrapper */
+.dashboard-wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* Welcome/Header Section */
+.dashboard-welcome {
+  text-align: center;
+}
+.dashboard-welcome h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--nexus-blue);
+  margin-bottom: 0.5rem;
+}
+.dashboard-welcome p {
+  color: #4b5563;
+  font-size: 1rem;
+}
+
+/* 
+  Tiles Container (the area holding your cards, e.g. "Submit Drafting Request", "View My Tickets", etc.)
+
+  We use flexbox with "justify-content: center" to ensure the tiles are always centered.
+  "flex-wrap: wrap" allows them to flow onto new lines if there are too many to fit on one row.
+  "gap: 2rem" provides spacing between tiles.
+*/
+.dashboard-tile-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* The individual tile card styling */
+.tile {
+  background-color: var(--nexus-white);
+  border-radius: 1rem;
+  padding: 2rem;
+  /* fixed or minimum width ensures consistent card widths */
+  width: 240px;
+
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+.tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  border-color: var(--nexus-blue);
+}
+
+/* Icon within the tile */
+.tile-icon {
+  margin-bottom: 1rem;
+}
+.tile-icon i {
+  width: 40px;
+  height: 40px;
+  color: var(--nexus-blue);
+}
+
+/* Label text within the tile */
+.tile-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Recent Feed Section */
+.dashboard-feed h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--nexus-blue);
+  margin-bottom: 1rem;
+}
+.feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.feed-item {
+  background: var(--nexus-white);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+.feed-item:hover {
+  background-color: #f5f9fc;
+}
+.feed-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #374151;
+}
+.feed-item span {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+.no-activity {
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Example for making a table header clickable to sort, etc. */
+th.sortable {
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+th.sortable span {
+  font-size: 0.8rem;
+  color: #d1d5db; /* Gray-300 */
+  opacity: 0.7;
+  margin-left: 0.25rem;
+}

@@ -1,0 +1,174 @@
+<!-- templates/pages/requests/submit_modal.html -->
+<!-- Modal Backdrop -->
+<div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40"></div>
+
+<!-- Modal Container -->
+<div id="modal-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full p-8 relative max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <h2 id="modal-title" class="text-2xl font-semibold text-nexus-dark">
+        Drafting Request Form
+      </h2>
+      <button id="close-modal" aria-label="Close modal" class="text-gray-400 hover:text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Link to custom CSS for modal floating labels -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/submit_modal.css') }}">
+
+    <!-- Form -->
+    <form id="drafting-form" method="POST" action="/drafting/submit" enctype="multipart/form-data" class="space-y-6">
+      <!-- Submission Token -->
+      <input type="hidden" name="submission_token" value="{{ submission_token }}" />
+
+      <!-- Priority & Unit -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <!-- Priority Field -->
+        <fieldset class="floating-fieldset">
+          <legend class="floating-legend">Priority</legend>
+          <select name="priority" id="priority" class="floating-input w-full" required>
+            <option value="" disabled selected hidden>Select a Priority (required)</option>
+            {% for i in range(1, 7) %}
+              <option value="{{ i }}">{{ i }} {{ 'Highest' if i == 1 else 'Lowest' if i == 6 else '' }}</option>
+            {% endfor %}
+          </select>
+        </fieldset>
+        <p class="text-xs text-red-500 mt-1 hidden" id="priority-error">
+          Please select a priority.
+        </p>
+
+        <!-- Refinery Unit Field -->
+        <fieldset class="floating-fieldset">
+          <legend class="floating-legend">Refinery Unit</legend>
+          <select name="unit" id="unit" class="floating-input w-full" required>
+            <option value="" disabled selected hidden>Select a Unit (required)</option>
+            {% for unit in unit_list %}
+              <option value="{{ unit }}">{{ unit }}</option>
+            {% endfor %}
+          </select>
+        </fieldset>
+        <p class="text-xs text-red-500 mt-1 hidden" id="unit-error">
+          Please select a unit.
+        </p>
+      </div>
+
+      <!-- Review Engineer Field -->
+      <fieldset class="floating-fieldset">
+        <legend class="floating-legend">Review Engineer</legend>
+        <select name="review_engineer" id="review_engineer" class="floating-input w-full" required>
+          <option value="" disabled selected hidden>Select a Engineer (required)</option>
+          {% for engineer in engineer_list %}
+            <option value="{{ engineer.id }}">{{ engineer.actual_name }}</option>
+          {% endfor %}
+        </select>
+      </fieldset>
+      <p class="text-xs text-red-500 mt-1 hidden" id="review-engineer-error">
+        Please select a review engineer.
+      </p>
+
+      <!-- Work Order & MOC -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <fieldset class="floating-fieldset">
+          <legend class="floating-legend">Work Order or AFE</legend>
+          <input type="text" name="work_order" class="floating-input w-full" placeholder="" />
+        </fieldset>
+        <fieldset class="floating-fieldset">
+          <legend class="floating-legend">MOC Number</legend>
+          <input type="text" name="moc" class="floating-input w-full" placeholder="" />
+        </fieldset>
+      </div>
+
+      <!-- Description -->
+      <fieldset class="floating-fieldset">
+        <legend class="floating-legend">Request Description (Minimum 150 characters)</legend>
+        <textarea name="description" id="description" class="floating-input w-full h-28 resize-none" placeholder=""></textarea>
+      </fieldset>
+      <div class="flex justify-between items-start">
+        <p class="text-xs text-red-500 mt-1 hidden" id="description-error">
+          Minimum 150 characters required.
+        </p>
+        <p class="text-xs text-gray-400 mt-1 text-right" id="char-count">
+          150 characters remaining
+        </p>
+      </div>
+
+      <!-- Request Type -->
+      <fieldset class="floating-fieldset">
+        <legend class="floating-legend">Request Type</legend>
+        <select name="request_type" id="request_type" class="floating-input w-full">
+          <option value="" disabled selected hidden></option>
+          <option value="isometric">Isometric Piping Package</option>
+          <option value="moc">MOC</option>
+          <option value="asbuilt">As-Builts</option>
+          <option value="rfi">Request For Information</option>
+        </select>
+      </fieldset>
+      <p class="text-xs text-red-500 mt-1 hidden" id="request-type-error">
+        Please select a request type.
+      </p>
+
+      <!-- Type-Specific Fields (unchanged) -->
+      <div id="type-specific-fields" class="space-y-4 hidden">
+        <!-- Dynamic content injected by JavaScript based on request type -->
+      </div>
+
+      <!-- Document Upload (unchanged) -->
+      <div id="file-uploader-container" class="space-y-4 hidden transition-all duration-500 ease-in-out transform opacity-0">
+        <div id="drop-zone" class="w-full min-h-[140px] border-2 border-dashed border-gray-300 bg-gray-100 rounded-md p-6 text-center cursor-pointer hover:border-nexus-blue hover:bg-gray-200 transition relative">
+          <p class="text-sm text-gray-600">
+            Drag and drop up to 8 files, or
+            <span class="text-nexus-dark font-medium">click to browse</span>
+          </p>
+          <input type="file" id="attachments" name="attachments" multiple class="hidden" accept="*/*" />
+          <div class="flex flex-wrap justify-center gap-2 mt-4 text-xs text-gray-400">
+            <span class="px-2 py-1 border border-gray-300 rounded-full">Photos</span>
+            <span class="px-2 py-1 border border-gray-300 rounded-full">P&ID</span>
+            <span class="px-2 py-1 border border-gray-300 rounded-full">Plot Plans</span>
+            <span class="px-2 py-1 border border-gray-300 rounded-full">Mark Ups</span>
+            <span class="px-2 py-1 border border-gray-300 rounded-full">Drawings</span>
+            <span class="px-2 py-1 border border-gray-300 rounded-full">Tie In Points</span>
+            <span class="px-2 py-1 border border-gray-300 rounded-full">Equipment List</span>
+            <span class="px-2 py-1 border border-gray-300 rounded-full">Inspection ISO'S</span>
+            <span class="px-2 py-1 border border-gray-300 rounded-full">CAD FILES</span>
+          </div>
+        </div>
+        <p class="text-xs text-red-500 mt-1 hidden" id="file-error">
+          At least one file is required.
+        </p>
+        <div id="file-preview" class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4"></div>
+      </div>
+
+      <!-- File Thumbnail Template (unchanged) -->
+      <template id="file-thumbnail-template">
+        <div class="bg-white border border-gray-300 rounded-md p-3 text-center relative shadow-sm">
+          <div class="text-gray-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16V4a2 2 0 012-2h10a2 2 0 012 2v12m-6 4h.01M12 16h.01" />
+            </svg>
+          </div>
+          <div class="text-xs mt-2 truncate text-gray-700 font-medium filename"></div>
+          <button class="absolute top-1 right-1 text-gray-400 hover:text-red-500 remove-file" title="Remove">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </template>
+
+      <!-- Submit -->
+      <div class="text-right pt-2">
+        <button type="submit" id="submit-button" class="text-white text-sm font-medium py-2 px-6 rounded-lg shadow-sm transition bg-gray-300 hover:bg-nexus-dark hover:cursor-pointer">
+          Submit Request
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Include JustValidate library -->
+<script src="https://cdn.jsdelivr.net/npm/just-validate@4.5.1/dist/just-validate.production.min.js"></script>

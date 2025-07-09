@@ -1,0 +1,85 @@
+2025-04-29 12:05:14,493 ERROR: Unhandled Exception [in D:\DEV\Flask\Kern-Energy-Nexus\app\__init__.py:48]
+Traceback (most recent call last):
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\routes\dashboard.py", line 69, in index
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\templates\pages\dashboard\engineering_index.html", line 3, in top-level template code
+    {% set main_class = "flex-1 p-0" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\templates\base.html", line 41, in top-level template code
+    {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DEV\Flask\Kern-Energy-Nexus\app\templates\pages\dashboard\engineering_index.html", line 78, in block 'content'
+    {% include 'partials/doc_browser.html' %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 64, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ggetzfrid\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 98, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: partials/doc_browser.html
+2025-04-30 08:24:15,434 WARNING: User 4 denied root archive folder creation (role mismatch). [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:162]
+2025-04-30 12:09:27,795 WARNING: User 4 denied root folder creation (role mismatch). [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:204]
+2025-04-30 12:11:36,160 WARNING: User 4 denied root folder creation (role mismatch). [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:204]
+2025-04-30 12:40:06,555 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:40:06,568 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 12:41:26,928 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:41:26,940 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 12:44:49,410 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:44:49,424 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 12:46:09,696 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:46:09,709 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 12:47:39,343 WARNING: User 4 has no 'roles' attribute or it's not iterable during permission check. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:39]
+2025-04-30 12:47:39,356 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:268]
+2025-04-30 12:49:27,196 WARNING: User 4 has no 'roles' attribute or it's not iterable during permission check. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:39]
+2025-04-30 12:49:27,200 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:268]
+2025-04-30 12:51:56,663 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:51:56,677 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 12:53:17,695 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:53:17,708 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 12:55:40,856 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:55:40,869 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 12:58:18,595 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:58:18,607 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 12:58:52,086 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:58:52,089 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 12:59:01,614 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:59:01,617 INFO: User 4 listed entries for path: 'archive' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:132]
+2025-04-30 12:59:11,148 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 12:59:11,152 INFO: User 4 listed entries for path: 'archive' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:132]
+2025-04-30 13:00:04,610 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 13:00:04,612 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 13:00:06,020 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 13:00:06,028 INFO: User 4 listed entries for path: 'Document Control' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:132]
+2025-04-30 13:09:36,131 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 13:09:36,133 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 13:09:40,037 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 13:09:40,067 INFO: User 4 listed entries for path: 'Document Control' [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:132]
+2025-04-30 13:10:54,003 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]
+2025-04-30 13:10:54,016 INFO: User 4 listed root folders successfully. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:413]
+2025-04-30 13:11:04,625 WARNING: User 4 has no 'roles' attribute or it's not iterable. [in D:\DEV\Flask\Kern-Energy-Nexus\app\routes\file_management.py:47]

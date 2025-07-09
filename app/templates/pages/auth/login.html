@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-[calc(100vh-8rem)] flex items-center justify-center px-4">
+  <div class="w-full max-w-sm bg-white p-6 rounded shadow-md text-center">
+    <img src="{{ url_for('static', filename='img/nexus-logo.png') }}" alt="Nexus Logo" class="w-24 h-auto mx-auto mb-6">
+    <h2 class="form-heading">Login</h2>
+    
+    <form method="POST" action="" class="space-y-4 text-left">
+      {{ form.hidden_tag() }} <!-- ✅ Injects CSRF token and any hidden fields -->
+
+      <div>
+        <input type="text" name="username" id="username" required
+          placeholder="Username"
+          class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--nexus-blue)]" />
+      </div>
+      <div>
+        <input type="password" name="password" id="password" required
+          placeholder="Password"
+          class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--nexus-blue)]" />
+      </div>
+      <button type="submit"
+        class="btn-primary w-full">Login</button>
+    </form>
+
+    <p class="text-xs text-nexus-blue mt-4">
+      Don’t have an account?
+      <a href="mailto:ggetzfrid@kernenergy.com" class="text-[var(--nexus-accent-green)] hover:underline">
+        Contact ggetzfrid@kernenergy.com
+      </a>
+    </p>
+  </div>
+</div>
+{% endblock %}

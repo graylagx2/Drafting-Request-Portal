@@ -1,0 +1,234 @@
+<!-- templates/pages/drafting/admin_ticket_modal.html -->
+<!-- Modal Backdrop -->
+<div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40"></div>
+
+<!-- Modal Container -->
+<div id="modal-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl shadow-2xl w-[90vw] h-[90vh] p-6 relative overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h2 id="modal-title" class="text-2xl font-bold text-nexus-dark">Admin Drafting Tickets</h2>
+      <button id="close-modal" aria-label="Close modal" class="text-gray-400 hover:text-gray-600 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <div class="mb-4 border-b border-gray-300">
+      <button id="tab-new-tickets" class="tab-button active-tab py-2 px-4 focus:outline-none">New Tickets</button>
+      <button id="tab-assigned-tickets" class="tab-button py-2 px-4 focus:outline-none">Assigned Tickets</button>
+      <button id="tab-completed-tickets" class="tab-button py-2 px-4 focus:outline-none">Completed Tickets</button>
+      <button id="tab-analytics" class="tab-button py-2 px-4 focus:outline-none">Drafting Analytics</button>
+    </div>
+    
+    <!-- Tab Content -->
+    <div id="tab-content">
+      <!-- New Tickets Tab -->
+      <div id="content-new-tickets">
+        {% if new_tickets %}
+        <div class="overflow-x-auto border rounded-lg shadow-sm">
+          <table id="admin-new-tickets-table" class="min-w-full text-sm text-left">
+            <thead class="bg-nexus-blue text-nexus-white">
+              <tr>
+                <th class="px-4 py-2">Ticket #</th>
+                <th class="px-4 py-2">WO / AFE</th>
+                <th class="px-4 py-2">Type</th>
+                <th class="px-4 py-2 sortable" data-index="3" data-numeric="true">
+                  Priority <span class="ml-1 text-xs opacity-75">↕</span>
+                </th>
+                <th class="px-4 py-2 sortable" data-index="4" data-numeric="false">
+                  Submitted <span class="ml-1 text-xs opacity-75">↕</span>
+                </th>
+                <th class="px-4 py-2">Description</th>
+                <th class="px-4 py-2">Files</th>
+                <th class="px-4 py-2">Assign</th>
+              </tr>
+            </thead>
+            <tbody class="bg-nexus-white">
+              {% for ticket in new_tickets %}
+              <tr class="border-b hover:bg-gray-50 transition">
+                <td class="px-4 py-3 font-semibold text-nexus-blue">{{ ticket.ticket_number }}</td>
+                <td class="px-4 py-3">{{ ticket.work_order or ticket.moc or '—' }}</td>
+                <td class="px-4 py-3">{{ ticket.request_type|capitalize }}</td>
+                <td class="px-4 py-3">{{ ticket.priority }}</td>
+                <td class="px-4 py-3">{{ ticket.created_at.strftime('%b %d, %Y') }}</td>
+                <td class="px-4 py-3 relative group">
+                  <div class="truncate max-w-[200px]">{{ ticket.description }}</div>
+                  <div class="absolute z-20 left-0 top-full mt-1 w-96 p-2 bg-white border border-gray-300 shadow-lg rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <p class="text-gray-900 text-sm">{{ ticket.description }}</p>
+                  </div>
+                </td>
+                <td class="px-4 py-3">
+                  {% if ticket.attachments %}
+                  <details class="transition">
+                    <summary class="cursor-pointer text-[var(--nexus-accent-green)] hover:underline">
+                      View ({{ ticket.attachments|length }})
+                    </summary>
+                    <ul class="mt-1 ml-4 list-disc text-xs text-gray-700">
+                      {% for file in ticket.attachments %}
+                      <li>
+                        <a href="{{ url_for('static', filename=file.file_path) }}" data-file-url="{{ url_for('static', filename=file.file_path) }}" class="file-preview-link hover:underline">
+                          {{ file.file_path.split('/')[-1] }}
+                        </a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </details>
+                  {% else %}
+                  <span class="text-gray-400 text-sm">—</span>
+                  {% endif %}
+                </td>
+                <td class="px-4 py-3">
+                  <button data-ticket-id="{{ ticket.id }}" class="assign-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition">Assign</button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="mt-4 text-gray-600">No new tickets found.</p>
+        {% endif %}
+      </div>
+      
+      <!-- Assigned Tickets Tab -->
+      <div id="content-assigned-tickets" class="hidden">
+        {% if assigned_tickets %}
+        <div class="overflow-x-auto border rounded-lg shadow-sm">
+          <table id="admin-assigned-tickets-table" class="min-w-full text-sm text-left">
+            <thead class="bg-nexus-blue text-nexus-white">
+              <tr>
+                <th class="px-4 py-2">Ticket #</th>
+                <th class="px-4 py-2">WO / AFE</th>
+                <th class="px-4 py-2">Type</th>
+                <th class="px-4 py-2 sortable" data-index="3" data-numeric="true">
+                  Priority <span class="ml-1 text-xs opacity-75">↕</span>
+                </th>
+                <th class="px-4 py-2">Assigned To</th>
+                <th class="px-4 py-2 sortable" data-index="5" data-numeric="false">
+                  Submitted <span class="ml-1 text-xs opacity-75">↕</span>
+                </th>
+                <th class="px-4 py-2">Description</th>
+                <th class="px-4 py-2">Files</th>
+              </tr>
+            </thead>
+            <tbody class="bg-nexus-white">
+              {% for ticket in assigned_tickets %}
+              <tr class="border-b hover:bg-gray-50 transition">
+                <td class="px-4 py-3 font-semibold text-nexus-blue">{{ ticket.ticket_number }}</td>
+                <td class="px-4 py-3">{{ ticket.work_order or ticket.moc or '—' }}</td>
+                <td class="px-4 py-3">{{ ticket.request_type|capitalize }}</td>
+                <td class="px-4 py-3">{{ ticket.priority }}</td>
+                <td class="px-4 py-3">
+                  {{ ticket.assigned_to.actual_name if ticket.assigned_to else "—" }}
+                </td>
+                <td class="px-4 py-3">{{ ticket.created_at.strftime('%b %d, %Y') }}</td>
+                <td class="px-4 py-3 relative group">
+                  <div class="truncate max-w-[200px]">{{ ticket.description }}</div>
+                  <div class="absolute z-20 left-0 top-full mt-1 w-96 p-2 bg-white border border-gray-300 shadow-lg rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <p class="text-gray-900 text-sm">{{ ticket.description }}</p>
+                  </div>
+                </td>
+                <td class="px-4 py-3">
+                  {% if ticket.attachments %}
+                  <details class="transition">
+                    <summary class="cursor-pointer text-[var(--nexus-accent-green)] hover:underline">
+                      View ({{ ticket.attachments|length }})
+                    </summary>
+                    <ul class="mt-1 ml-4 list-disc text-xs text-gray-700">
+                      {% for file in ticket.attachments %}
+                      <li>
+                        <a href="{{ url_for('static', filename=file.file_path) }}" data-file-url="{{ url_for('static', filename=file.file_path) }}" class="file-preview-link hover:underline">
+                          {{ file.file_path.split('/')[-1] }}
+                        </a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </details>
+                  {% else %}
+                  <span class="text-gray-400 text-sm">—</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="mt-4 text-gray-600">No assigned tickets found.</p>
+        {% endif %}
+      </div>
+      
+      <!-- Completed Tickets Tab -->
+      <div id="content-completed-tickets" class="hidden">
+        {% if completed_tickets %}
+        <div class="overflow-x-auto border rounded-lg shadow-sm">
+          <table id="admin-completed-tickets-table" class="min-w-full text-sm text-left">
+            <thead class="bg-nexus-blue text-nexus-white">
+              <tr>
+                <th class="px-4 py-2">Ticket #</th>
+                <th class="px-4 py-2">WO / AFE</th>
+                <th class="px-4 py-2">Type</th>
+                <th class="px-4 py-2 sortable" data-index="3" data-numeric="true">
+                  Priority <span class="ml-1 text-xs opacity-75">↕</span>
+                </th>
+                <th class="px-4 py-2 sortable" data-index="4" data-numeric="false">
+                  Completed On <span class="ml-1 text-xs opacity-75">↕</span>
+                </th>
+                <th class="px-4 py-2">Description</th>
+                <th class="px-4 py-2">Files</th>
+              </tr>
+            </thead>
+            <tbody class="bg-nexus-white">
+              {% for ticket in completed_tickets %}
+              <tr class="border-b hover:bg-gray-50 transition">
+                <td class="px-4 py-3 font-semibold text-nexus-blue">{{ ticket.ticket_number }}</td>
+                <td class="px-4 py-3">{{ ticket.work_order or ticket.moc or '—' }}</td>
+                <td class="px-4 py-3">{{ ticket.request_type|capitalize }}</td>
+                <td class="px-4 py-3">{{ ticket.priority }}</td>
+                <td class="px-4 py-3">{{ ticket.created_at.strftime('%b %d, %Y') }}</td>
+                <td class="px-4 py-3 relative group">
+                  <div class="truncate max-w-[200px]">{{ ticket.description }}</div>
+                  <div class="absolute z-20 left-0 top-full mt-1 w-96 p-2 bg-white border border-gray-300 shadow-lg rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <p class="text-gray-900 text-sm">{{ ticket.description }}</p>
+                  </div>
+                </td>
+                <td class="px-4 py-3">
+                  {% if ticket.attachments %}
+                  <details class="transition">
+                    <summary class="cursor-pointer text-[var(--nexus-accent-green)] hover:underline">
+                      View ({{ ticket.attachments|length }})
+                    </summary>
+                    <ul class="mt-1 ml-4 list-disc text-xs text-gray-700">
+                      {% for file in ticket.attachments %}
+                      <li>
+                        <a href="{{ url_for('static', filename=file.file_path) }}" data-file-url="{{ url_for('static', filename=file.file_path) }}" class="file-preview-link hover:underline">
+                          {{ file.file_path.split('/')[-1] }}
+                        </a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </details>
+                  {% else %}
+                  <span class="text-gray-400 text-sm">—</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="mt-4 text-gray-600">No completed tickets found.</p>
+        {% endif %}
+      </div>
+      
+      <!-- Drafting Analytics Tab (Placeholder) -->
+      <div id="content-analytics" class="hidden">
+        <p class="mt-4 text-gray-600">Drafting analytics will be available soon.</p>
+      </div>
+    </div>
+  </div>
+</div>

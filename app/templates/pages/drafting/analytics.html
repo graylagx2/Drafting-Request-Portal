@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto">
+  <h2 class="text-2xl font-bold text-nexus-blue mb-6">Drafting Analytics</h2>
+
+  <canvas id="draftingChart" height="120" class="bg-white p-6 rounded shadow-md"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('draftingChart').getContext('2d');
+const chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: {{ labels|tojson }},
+    datasets: [{
+      label: 'Tickets Submitted',
+      data: {{ submitted|tojson }},
+      borderColor: '#1D4ED8',
+      fill: false,
+    }, {
+      label: 'Tickets Completed',
+      data: {{ completed|tojson }},
+      borderColor: '#22C55E',
+      fill: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    scales: {
+      y: { beginAtZero: true }
+    }
+  }
+});
+</script>
+{% endblock %}

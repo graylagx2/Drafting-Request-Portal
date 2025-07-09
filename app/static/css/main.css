@@ -1,0 +1,387 @@
+/* app/static/css/main.css */
+/* 
+  Main styling overrides for Kern-Energy-Nexus with an airy, refined design.
+  Buttons are outlined (white background, blue accents).
+  The table header is now a subtle off-white, removing the heavy solid blue look.
+*/
+
+/* === Tailwind Directives (optional, if you're using Tailwind) === */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Theme Variables === */
+:root {
+  --nexus-blue: #102a43;
+  --nexus-accent-green: #49c5b6;
+  --nexus-gray: #f5f7fa;
+  --nexus-white: #ffffff;
+  --nexus-error: #e74c3c;
+  --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.08);
+  --transition-speed: 0.3s;
+}
+
+/* === Base & Typography === */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--nexus-gray);
+  color: var(--nexus-blue);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+/* Make the body a flex container for sticky footer */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* The main area expands to push the footer down if content is short */
+main {
+  flex: 1;
+  display: block;
+}
+
+/* Optional utility container for centered content (non-drafter pages) */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* === Header / Navbar === */
+.site-header {
+  background-color: var(--nexus-white);
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  z-index: 50;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* === Footer === */
+.site-footer {
+  background-color: var(--nexus-white);
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+  padding: 1rem;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* === Drafter Layout (Sidebar + Content) === */
+.dashboard-wrapper.drafter-layout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0;
+  padding: 2rem 0;
+  /* top & bottom spacing for an airy feel */
+}
+
+/* Sidebar flush to the left */
+.dashboard-wrapper.drafter-layout .drive-sidebar {
+  width: 16rem;
+  flex-shrink: 0;
+  background-color: var(--nexus-white);
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.07);
+  border-right: 1px solid #e2e8f0;
+  margin-right: 2rem;
+  padding: 1.5rem;
+}
+
+/* Main content to the right, with airy padding */
+.dashboard-wrapper.drafter-layout>main {
+  flex: 1;
+  padding: 2rem;
+  background-color: transparent;
+  box-sizing: border-box;
+  border-radius: 0.375rem;
+}
+
+/* === Dashboard Tiles === */
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.dashboard-tile-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.tile {
+  background-color: var(--nexus-white);
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 240px;
+  text-align: center;
+  box-shadow: var(--shadow-light);
+  color: inherit;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tile:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-medium);
+  border-color: var(--nexus-blue);
+}
+
+.tile-icon {
+  margin-bottom: 1rem;
+}
+
+.tile-icon i {
+  width: 40px;
+  height: 40px;
+  color: var(--nexus-blue);
+}
+
+.tile-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* === Table & Feed Sections === */
+table.w-full {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+/* 
+   Instead of solid blue, use a subtle off-white in the thead 
+   so it's less tacky. The text is a dark gray or your brand blue.
+*/
+table.w-full th {
+  background-color: #f7fafc;
+  /* light, subtle background */
+  color: #374151;
+  /* dark text */
+  font-weight: 600;
+  padding: 0.75rem;
+  border-bottom: 2px solid #e2e8f0;
+  /* a stronger bottom border for separation */
+  text-align: left;
+}
+
+table.w-full td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+table.w-full tbody tr:hover {
+  background-color: #f0f4f8;
+}
+
+.dashboard-feed {
+  background-color: var(--nexus-white);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-light);
+}
+
+.dashboard-feed h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--nexus-blue);
+  margin-bottom: 1rem;
+}
+
+.feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feed-item {
+  background: var(--nexus-white);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feed-item:hover {
+  background: #f5f9fc;
+}
+
+.feed-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.feed-item span {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.no-activity {
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* === Button & Input Styles === */
+/* White background, blue border; simpler, airy look */
+.btn-primary {
+  background-color: var(--nexus-white);
+  color: var(--nexus-blue);
+  border: 2px solid var(--nexus-blue);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-speed),
+    color var(--transition-speed),
+    transform var(--transition-speed);
+}
+
+.btn-primary:hover {
+  background-color: var(--nexus-blue);
+  color: var(--nexus-white);
+  transform: translateY(-2px);
+}
+
+/* Subtle action buttons (Download / Delete) remain subdued */
+.btn-action {
+  background: transparent;
+  border: none;
+  color: var(--nexus-blue);
+  padding: 0.25rem;
+  cursor: pointer;
+  transition: color var(--transition-speed);
+}
+
+.btn-action.delete {
+  color: var(--nexus-error);
+}
+
+.btn-action:hover {
+  color: var(--nexus-accent-green);
+}
+
+/* Inputs, forms, etc. */
+input,
+textarea,
+select {
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.375rem;
+  background-color: var(--nexus-white);
+  transition: box-shadow var(--transition-speed);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--nexus-blue);
+  box-shadow: 0 0 0 2px rgba(16, 42, 67, 0.25);
+}
+
+/* app/static/css/main.css */
+
+/* ... (Keep existing :root variables and other styles) ... */
+
+/* === UPDATED Header / Navbar Styles === */
+/* app/static/css/main.css */
+
+/* ... (Keep existing :root, base, header container, icon button styles) ... */
+
+/* Make sure header container pushes actions to the right if search is removed */
+.site-header .container {
+  /* display: flex; items-center; justify-between; are handled by Tailwind */
+}
+
+/* Push actions to the right when search isn't present */
+.site-header .container> :last-child {
+  /* Target the right-side actions div */
+  margin-left: auto;
+  /* Pushes the element to the end of the flex container */
+}
+
+/* Style for the notification dropdown */
+#notification-dropdown {
+  z-index: 60;
+  /* Ensure dropdown is above header */
+  /* Other styles like positioning, width, shadow, ring are applied via Tailwind */
+}
+
+/* Style for items within notification dropdown (example) */
+#notification-dropdown a:hover {
+  /* background-color: #f3f4f6; applied via Tailwind */
+}
+
+
+/* User Menu Area Styles */
+.header-user-button {
+  /* Basic styles for the button containing avatar/name */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  /* Minimal padding */
+  border-radius: 9999px;
+  /* Rounded */
+}
+
+.header-user-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 42, 67, 0.25);
+  /* Focus ring */
+}
+
+/* Restyled Logout Link */
+.logout-link {
+  display: inline-flex;
+  /* Allows icon alignment */
+  align-items: center;
+  border-radius: 0.25rem;
+  /* Slight rounding */
+  /* Add transition if desired */
+  transition: background-color 0.2s ease;
+}
+
+.logout-link:hover {
+  background-color: #f3f4f6;
+  /* Subtle background on hover */
+  text-decoration: none;
+  /* Override underline if needed */
+}
+
+.logout-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 42, 67, 0.25);
+  /* Focus ring */
+}
+
+.logout-link .sm\\:hidden {
+  /* Target the icon shown on small screens */
+  /* Adjust icon styles if needed */
+}
+
+
+/* === Other existing styles remain unchanged === */
+/* ... */
+
+/* === Other existing styles in main.css remain unchanged === */
+/* ... */

@@ -1,0 +1,194 @@
+{% extends 'base.html' %} {# Remove set main_class as layout is now handled by
+the flex container #} {% block head %} {{ super() }} {# Includes styles from
+base.html (e.g., main.css, Tailwind) #} {# Original Drafter CSS - Keeping these
+#}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/dashboard.css') }}"
+/>
+
+{# === ADDED: CSS needed for the included File Browser components === #} {# Font
+Awesome (for file type icons & status icons) - Ensure loaded (here or base.html)
+#}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+{# Sidebar Tree Styles (used by file_browser_sidebar.html) #}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/file_management/sidebar_tree.css') }}"
+/>
+{# Main File Browser Styles (used by file_browser_main.html/file_browser.html)
+#}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/file_management/file_management.css') }}"
+/>
+{# === END ADDED === #} {% endblock %} {% block content %} {# Add body data
+attributes needed by file browser JS #}
+<body
+  data-current-user="{{ current_user.username if current_user else '' }}"
+  data-user-roles="{{ current_user.roles | join(',') if current_user and current_user.roles else '' }}"
+>
+  {# Use the File Browser's Flex Layout #}
+  <div class="flex h-[calc(100vh-4rem)] bg-white border-t border-gray-200">
+    {# 1. Include the File Browser Sidebar Component #} {# Make sure this path
+    is exactly correct #} {% include
+    'components/file_browser/file_browser_sidebar.html' %} {# 2. Main Content
+    Area #}
+    <main class="flex-1 p-6 overflow-y-auto">
+      {# Add dynamic title element needed by file browser JS #}
+      <div class="dashboard-welcome">
+        <h1>Welcome, {{ current_user.actual_name or current_user.username }}!</h1>
+        <p>This is your drafting request dashboard.</p>
+      </div>
+      {# Default Title for Drafter #} {# Original Drafter Tickets Tile Section
+      #}
+      <section
+        class="dashboard-tile-container mb-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      >
+        {# Using grid layout from original drafter_index #}
+        <a
+          href="#"
+          id="open-drafter-tickets-modal"
+          class="tile flex flex-col items-center justify-center relative"
+        >
+          <div class="tile-icon mb-2 relative">
+            <i data-lucide="list-checks" class="w-8 h-8"></i>
+            {% if user.tickets_assigned|selectattr('assigned_viewed', 'equalto',
+            False)|list %}
+            <span
+              class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border border-white shadow"
+            ></span>
+            {% endif %}
+          </div>
+          <div class="tile-label">View My Tickets</div>
+        </a>
+        {# Add any other drafter-specific tiles here #}
+      </section>
+
+      {# 3. Include the Main File Browser UI Component #} {# Using
+      file_browser.html based on your engineering_index example #} {# Adjust
+      path/name if your main component file is different #}
+      <div class="mt-8 mb-8">
+        {# Added margins for spacing #} {% include
+        'components/file_browser/file_browser.html' %}
+      </div>
+
+      {# Original Recent Activity Feed Section #}
+      <section class="dashboard-feed mt-8">
+        <h2 class="text-xl font-semibold mb-4">Recent Activity</h2>
+        <div class="feed-list space-y-4">
+          {% for item in feed_items %}
+          <div
+            class="feed-item flex items-center justify-between p-4 rounded shadow"
+          >
+            <p class="text-base">{{ item.message }}</p>
+            <span class="text-sm"
+              >{{ item.timestamp.strftime('%b %d, %Y %I:%M %p') }}</span
+            >
+          </div>
+          {% else %}
+          <p class="no-activity text-center text-gray-500">
+            No recent activity.
+          </p>
+          {% endfor %}
+        </div>
+      </section>
+    </main>
+    {# End main content area #}
+  </div>
+  {# End flex layout #}
+</body>
+{% endblock %} {% block scripts %} {{ super() }} {# Includes scripts from
+base.html #} {# Load File Browser App Logic (Needed for included components) #}
+<script
+  type="module"
+  src="{{ url_for('static', filename='js/file_management/app.js') }}"
+></script>
+
+{# Load Original Drafter Ticket Modal Logic #}
+<script
+  type="module"
+  src="{{ url_for('static', filename='js/drafter_tickets_modal.js') }}"
+></script>
+
+{# Load and Initialize Lucide Icons #}
+<script>
+  function initializeIcons() {
+    if (typeof lucide !== "undefined") {
+      try {
+        requestAnimationFrame(() => {
+          console.log("Attempting to initialize Lucide icons...");
+          lucide.createIcons();
+          console.log("Lucide icons initialized for drafter page.");
+        });
+      } catch (error) {
+        console.error("Error creating Lucide icons:", error);
+      }
+    } else {
+      console.warn("Lucide library not available when initializeIcons called.");
+    }
+  }
+
+  function loadLucideAndInit() {
+    if (typeof lucide === "undefined") {
+      // Dynamically load Lucide if not already present (e.g., by base.html)
+      const script = document.createElement("script");
+      script.src = "https://unpkg.com/lucide@latest";
+      script.onload = initializeIcons;
+      script.onerror = () => console.error("Failed to load Lucide script.");
+      document.body.appendChild(script);
+    } else {
+      initializeIcons(); // Already loaded
+    }
+  }
+
+  // Run initializations after DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadLucideAndInit);
+  } else {
+    loadLucideAndInit();
+  }
+
+  // --- Specific Initialization for Drafter Modal (Example) ---
+  // This assumes drafter_tickets_modal.js adds functionality globally
+  // or exposes an init function. If it attaches listeners automatically,
+  // just loading the module might be enough. If it needs explicit setup,
+  // do it here within DOMContentLoaded or loadLucideAndInit.
+  document.addEventListener("DOMContentLoaded", () => {
+    const drafterModalTrigger = document.getElementById(
+      "open-drafter-tickets-modal"
+    );
+    if (drafterModalTrigger) {
+      // Check if the imported module added a function to window or requires setup
+      if (typeof initializeDrafterModal === "function") {
+        // Replace with actual init function if needed
+        initializeDrafterModal();
+      } else {
+        // Assume event listeners are handled within the module itself
+        console.log(
+          "Drafter ticket modal trigger found. Assuming listeners attached by module."
+        );
+      }
+      // Or if it exposes a function like the engineer one:
+      /*
+                 drafterModalTrigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if(typeof openDrafterTicketModal === 'function'){ // check if function exists
+                       openDrafterTicketModal(); // Call function if needed
+                    } else {
+                       console.error("openDrafterTicketModal function not found");
+                    }
+                 });
+                 */
+    } else {
+      console.warn("Drafter tickets modal trigger button not found.");
+    }
+  });
+</script>
+{% endblock %}

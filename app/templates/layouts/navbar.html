@@ -1,0 +1,128 @@
+<nav class="site-header">
+  {# Use class defined in main.css #}
+  <div
+    class="container mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
+  >
+    {# Left Side: Logo and Brand Name (linked to home/dashboard) - Unchanged #}
+    <a
+      href="{{ url_for('dashboard.index') }}"
+      class="flex items-center gap-2 flex-shrink-0"
+    >
+      <img
+        src="{{ url_for('static', filename='img/nexus-logo.png') }}"
+        alt="Nexus Logo"
+        class="w-8 h-8 object-contain"
+      />
+      <span class="text-xl font-bold text-[--nexus-blue] hidden sm:inline"
+        >Nexus</span
+      >
+    </a>
+
+    {# Center: Search bar REMOVED #} {#
+    <div class="flex-1 flex justify-center px-4">... search input ...</div>
+    #} {# Right Side: Actions and User Menu - Modified #}
+    <div class="flex items-center gap-3 sm:gap-4 ml-auto">
+      {# Added ml-auto to push to the right #} {# Notification Menu #}
+      <div class="relative">
+        <button
+          type="button"
+          class="header-icon-button"
+          title="Notifications"
+          id="notification-menu-button"
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          <span class="sr-only">View notifications</span>
+          <i data-lucide="bell" class="w-5 h-5"></i>
+          {# Optional: Add a badge for unread count later #} {#
+          <span
+            class="absolute top-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-red-400"
+          ></span>
+          #}
+        </button>
+        {# Notification Dropdown Panel (Hidden by default, needs JS) #}
+        <div
+          id="notification-dropdown"
+          class="origin-top-right absolute right-0 mt-2 w-72 sm:w-80 md:w-96 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="notification-menu-button"
+          tabindex="-1"
+        >
+          <div class="p-3 border-b border-gray-200">
+            <p class="text-sm font-medium text-gray-700">Notifications</p>
+          </div>
+          <div class="py-2 px-3 max-h-80 overflow-y-auto">
+            {# Placeholder Content - Replace with dynamic notifications #}
+            <p class="text-sm text-gray-500 text-center py-4">
+              No new notifications
+            </p>
+            {# Example Notification Item Structure:
+            <a
+              href="#"
+              class="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
+              role="menuitem"
+            >
+              <p class="font-medium">Update Available</p>
+              <p class="text-xs text-gray-500 truncate">
+                Version 2.1.0 is now ready to install.
+              </p>
+            </a>
+            #}
+          </div>
+          <div class="px-3 py-2 border-t border-gray-200">
+            <a
+              href="#"
+              class="block text-center text-sm text-[--nexus-blue] hover:underline"
+              >View all notifications</a
+            >
+          </div>
+        </div>
+      </div>
+
+      {# Separator (Optional) #}
+      <div class="hidden sm:block border-l border-gray-200 h-6"></div>
+
+      {# User Info / Actions #} {% if current_user.is_authenticated %}
+      <div class="flex items-center gap-2 sm:gap-3">
+        {# User Avatar/Button Placeholder - Could trigger a dropdown later #}
+        <button
+          type="button"
+          class="header-user-button flex items-center focus:outline-none"
+          title="User options"
+          id="user-menu-button-placeholder"
+        >
+          <span
+            class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-[--nexus-blue] text-sm font-medium text-white"
+          >
+            {{ current_user.username[0]|upper if current_user.username else 'U'
+            }}
+          </span>
+          <span
+            class="hidden md:inline ml-2 text-sm font-medium text-gray-700 hover:text-[--nexus-blue]"
+            >{{ current_user.username }}</span
+          >
+        </button>
+
+        {# Visible Logout Link/Button #}
+        <a
+          href="{{ url_for('auth.logout') }}"
+          class="logout-link text-sm text-gray-600 hover:text-[--nexus-blue] hover:underline px-2 py-1"
+          title="Logout"
+        >
+          <span class="hidden sm:inline">Logout</span> {# Text for larger
+          screens #} <i data-lucide="log-out" class="sm:hidden w-5 h-5"></i> {#
+          Icon for smaller screens #}
+        </a>
+      </div>
+      {% else %} {# Fallback for logged-out users #}
+      <a
+        href="{{ url_for('auth.login') }}"
+        class="btn-primary text-sm px-4 py-1.5"
+        >Login</a
+      >
+      {% endif %}
+    </div>
+    {# End Right Side #}
+  </div>
+</nav>

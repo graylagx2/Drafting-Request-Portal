@@ -1,0 +1,53 @@
+<!-- templates/pages/dashboard/user_index.html -->
+{% extends 'base.html' %}
+
+{% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/dashboard.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/request.css') }}"
+/>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+  <div class="dashboard-welcome">
+    <h1>Welcome, {{ current_user.actual_name or current_user.username }}!</h1>
+    <p>This is your drafting request dashboard.</p>
+  </div>
+
+  <div class="dashboard-tile-container">
+    <a href="#" id="open-request-modal" class="tile">
+      <div class="tile-icon"><i data-lucide="file-plus"></i></div>
+      <div class="tile-label">Submit Drafting Request</div>
+    </a>
+
+    <a href="#" id="open-view-requests-modal" class="tile">
+      <div class="tile-icon"><i data-lucide="list-checks"></i></div>
+      <div class="tile-label">View Your Requests</div>
+    </a>
+  </div>
+</div>
+{% endblock %}
+
+{% block fullscreen %}
+<div id="modal-root"></div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+  <script type="module">
+    import { initRequestModal } from "/static/js/request.js";
+    import { initViewRequestsModal } from "/static/js/view_requests_modal.js";
+
+    initRequestModal();
+    initViewRequestsModal();
+  </script>
+{% endblock %}

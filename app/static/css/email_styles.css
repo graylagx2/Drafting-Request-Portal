@@ -1,0 +1,56 @@
+/* email_styles.css – Designed to mimic the app’s main theme with a visible, styled table */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .email-container {
+    width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .email-container h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0056b3; /* Adjust to your primary theme color */
+  }
+  
+  .email-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .email-table thead th {
+    background-color: #0056b3;
+    color: #fff;
+    font-size: 18px;
+    padding: 12px;
+    border: 2px solid #0056b3;
+    text-align: center;
+  }
+  
+  .email-table th,
+  .email-table td {
+    padding: 10px;
+    border: 2px solid #ccc;
+    text-align: left;
+  }
+  
+  .email-table th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+  }
+  
+  .email-table td {
+    background-color: #fafafa;
+  }
+  

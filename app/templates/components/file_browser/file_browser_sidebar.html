@@ -1,0 +1,39 @@
+{# templates/components/file_browser_sidebar.html #}
+{# Represents the standard sidebar for file Browse views #}
+<aside class="w-72 flex-shrink-0 border-r border-gray-200 bg-gray-50 p-4 flex flex-col sidebar-nav">
+    {# --- Top Storage Section (Original) --- #}
+    {# Consider removing this if it's not needed or making it conditional #}
+    <div class="mb-4">
+        <h3 class="px-3 mb-2 text-lg font-semibold text-gray-800">Nexus Storage</h3>
+        <nav id="storage-folder-list" class="space-y-1 mb-2 max-h-60 overflow-y-auto">
+            {# Populated by JS (sidebar.js) #}
+            <p class="px-3 text-xs text-gray-500">Loading folders...</p>
+        </nav>
+        <button id="sidebar-new-folder-btn" class="sidebar-new-folder-btn">
+            <i data-lucide="folder-plus" class="w-4 h-4"></i> New Folder
+        </button>
+    </div>
+    {# --- End Top Storage Section --- #}
+
+    <hr class="my-4 border-gray-200">
+    <h3 class="px-3 mb-2 text-xs font-semibold uppercase text-gray-500 tracking-wider">Main Menu</h3>
+    <nav class="flex-1 space-y-1 mb-4">
+      {# Note: URLs and active state are handled by JS or Flask routing #}
+      <a href="{{ url_for('dashboard.index') }}" id="main-nav-home" class="sidebar-link"> <i data-lucide="home" class="icon-sm"></i> Home </a>
+      <a href="#" id="main-nav-dcs-view" class="sidebar-link"> <i data-lucide="database" class="icon-sm"></i> Documents (DCS) </a>
+      <a href="#" id="main-nav-recents" class="sidebar-link"> <i data-lucide="clock" class="icon-sm"></i> Recents </a>
+      <a href="#" id="main-nav-starred" class="sidebar-link"> <i data-lucide="star" class="icon-sm"></i> Starred </a>
+      <a href="#" id="main-nav-shared" class="sidebar-link"> <i data-lucide="users" class="icon-sm"></i> Shared </a>
+      <a href="#" id="main-nav-requests" class="sidebar-link"> <i data-lucide="file-check-2" class="icon-sm"></i> File Requests </a>
+      <a href="#" id="main-nav-activity" class="sidebar-link"> <i data-lucide="history" class="icon-sm"></i> Activity </a>
+      <a href="#" id="main-nav-deleted" class="sidebar-link"> <i data-lucide="trash-2" class="icon-sm"></i> Deleted Files </a>
+    </nav>
+    <div class="mt-auto pt-4 border-t border-gray-200">
+         {# Storage usage indicator... #}
+        <div class="px-3">
+            <div class="w-full bg-gray-200 rounded-full h-1.5 mb-1 dark:bg-gray-700"> <div class="bg-[var(--nexus-blue)] h-1.5 rounded-full" style="width: 45%"></div> </div>
+            <p class="text-xs text-gray-600">13.5 GB of 30 GB used</p>
+            <button class="mt-2 w-full text-left text-xs text-[var(--nexus-blue)] hover:underline"> Upgrade storage </button>
+        </div>
+    </div>
+</aside>

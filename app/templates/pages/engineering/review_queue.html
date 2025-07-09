@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block content %}
+<div class="max-w-5xl mx-auto">
+  <h2 class="text-2xl font-bold text-nexus-blue mb-6">Review Queue</h2>
+
+  {% if review_tickets %}
+  <div class="space-y-6">
+    {% for ticket in review_tickets %}
+    <div class="bg-white p-6 shadow rounded-md">
+      <div class="flex justify-between items-start">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">
+            {{ ticket.ticket_number }} – {{ ticket.unit }}
+          </h3>
+          <p class="text-sm text-gray-600">{{ ticket.description }}</p>
+        </div>
+        {% set pdf_file = None %} {% for a in ticket.attachments %} {% if
+        pdf_file is none and 'review/' in a.file_path.lower() and
+        a.file_path.lower().endswith('.pdf') %} {% set pdf_file =
+        a.file_path.split('/')[-1] %} {% endif %} {% endfor %} {% if pdf_file %}
+        <button
+          class="btn-primary open-review-modal"
+          data-ticket-number="{{ ticket.ticket_number }}"
+          data-filename="{{ pdf_file }}"
+        >
+          Review
+        </button>
+        {% else %}
+        <span class="text-sm text-gray-500">No PDF in review folder</span>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-gray-500">No submissions pending review.</p>
+  {% endif %}
+</div>
+
+<!-- PDF Annotation Modal -->
+<div
+  id="pdf-annotation-overlay"
+  class="hidden fixed inset-0 bg-black bg-opacity-60 z-50"
+>
+  <div
+    id="pdf-annotation-modal"
+    class="relative bg-white w-[90vw] h-[90vh] mx-auto my-4 rounded shadow-lg overflow-hidden"
+  >
+    <button
+      id="close-pdf-annotation"
+      class="absolute top-2 right-2 text-gray-500 hover:text-red-500 z-10"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+    <div id="pdf-annotation-container" class="w-full h-full"></div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/engineer_review_modal.js') }}"></script>
+{% endblock %}

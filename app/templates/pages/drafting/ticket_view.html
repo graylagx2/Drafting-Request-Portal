@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+  <h2 class="text-2xl font-bold text-nexus-blue mb-6">My Drafting Tickets</h2>
+
+  <div class="overflow-auto rounded shadow-sm bg-white">
+    <table class="min-w-full text-sm text-left">
+      <thead class="bg-nexus-blue text-white">
+        <tr>
+          <th class="p-3">Ticket</th>
+          <th class="p-3">Unit</th>
+          <th class="p-3">Priority</th>
+          <th class="p-3">Status</th>
+          <th class="p-3">Assigned</th>
+          <th class="p-3">Last Action</th>
+          <th class="p-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in tickets %}
+        <tr class="border-b hover:bg-gray-50 transition">
+          <td class="p-3 font-medium">{{ ticket.number }}</td>
+          <td class="p-3">{{ ticket.unit }}</td>
+          <td class="p-3">{{ ticket.priority }}</td>
+          <td class="p-3">{{ ticket.status }}</td>
+          <td class="p-3">{{ ticket.assigned_to.actual_name or '—' }}</td>
+          <td class="p-3">{{ ticket.last_updated.strftime('%b %d') }}</td>
+          <td class="p-3">
+            <a href="{{ url_for('drafting.view_ticket', ticket_id=ticket.id) }}" class="text-nexus-blue hover:underline">View</a>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="7" class="p-4 text-center text-gray-500">No tickets found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,250 @@
+{% extends "base.html" %} {% block content %}
+<!-- Modal Backdrop -->
+<div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40"></div>
+
+<!-- Modal Container -->
+<div
+  id="modal-container"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
+>
+  <div
+    class="bg-white rounded-2xl shadow-2xl w-[95vw] h-[95vh] p-6 relative"
+    role="dialog"
+    aria-modal="true"
+  >
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-[var(--nexus-blue)]">
+        My Drafting &amp; Design Review Tickets
+      </h2>
+      <button
+        id="close-modal"
+        aria-label="Close modal"
+        class="text-gray-400 hover:text-gray-600 transition"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Tab Buttons -->
+    <div class="flex gap-4 mb-4">
+      <button id="tab-in-review" class="tab-button active-tab">
+        In-Review Tickets
+      </button>
+      <button id="tab-completed" class="tab-button">Completed Tickets</button>
+    </div>
+
+    <!-- In-Review Tickets -->
+    <div id="content-in-review">
+      {% if in_review_tickets %}
+      <div class="overflow-x-auto border rounded-lg shadow-sm">
+        <table
+          id="engineer-in-review-table"
+          class="min-w-full text-sm text-left"
+        >
+          <thead
+            class="sticky top-0 z-10 text-sm bg-[var(--nexus-blue)] text-[var(--nexus-white)]"
+          >
+            <tr>
+              <th class="px-4 py-2">Ticket #</th>
+              <th class="px-4 py-2">Type</th>
+              <th class="px-4 py-2">Priority</th>
+              <th class="px-4 py-2">Description</th>
+              <th class="px-4 py-2">Submitted</th>
+              <th class="px-4 py-2">Status</th>
+              <th class="px-4 py-2 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            {% for ticket in in_review_tickets %}
+            <tr class="border-b hover:bg-gray-50 transition">
+              <td
+                class="px-4 py-3 font-semibold text-[var(--nexus-blue)] whitespace-nowrap"
+              >
+                {{ ticket.ticket_number }}
+              </td>
+              <td class="px-4 py-3 text-gray-800">
+                {{ ticket.request_type|capitalize }}
+              </td>
+              <td class="px-4 py-3 text-gray-900 font-bold">
+                {{ ticket.priority }}
+              </td>
+              <td class="px-4 py-3 text-gray-800 max-w-[200px] truncate">
+                {{ ticket.description }}
+              </td>
+              <td class="px-4 py-3 text-gray-600 whitespace-nowrap">
+                {{ ticket.created_at.strftime('%b %d, %Y') }}
+              </td>
+              <td class="px-4 py-3">
+                <span
+                  class="inline-block px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800"
+                >
+                  {{ ticket.status }}
+                </span>
+              </td>
+              <td class="px-4 py-3 text-right">
+                {% set ns = namespace(pdf_file=None) %} {% if ticket.attachments
+                %} {% for f in ticket.attachments %} {% if ns.pdf_file is none
+                and 'review/' in f.file_path.lower() and
+                f.file_path.lower().endswith('.pdf') %} {% set ns.pdf_file =
+                f.file_path.split('/')[-1] %} {% endif %} {% endfor %} {% endif
+                %}
+                <button
+                  type="button"
+                  class="btn-primary text-sm px-3 py-1 view-pdf-btn mb-2"
+                  data-ticket="{{ ticket.ticket_number }}"
+                  data-filename="{{ ns.pdf_file if ns.pdf_file else '' }}"
+                  {%
+                  if
+                  not
+                  ns.pdf_file
+                  %}disabled
+                  title="No PDF available"
+                  {%
+                  endif
+                  %}
+                >
+                  Review
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="text-gray-600">No tickets currently in review.</p>
+      {% endif %}
+    </div>
+
+    <!-- Completed Tickets -->
+    <div id="content-completed" class="hidden">
+      {% if completed_tickets %}
+      <div class="overflow-x-auto border rounded-lg shadow-sm">
+        <table
+          id="engineer-completed-table"
+          class="min-w-full text-sm text-left"
+        >
+          <thead
+            class="sticky top-0 z-10 text-sm bg-[var(--nexus-blue)] text-[var(--nexus-white)]"
+          >
+            <tr>
+              <th class="px-4 py-2">Ticket #</th>
+              <th class="px-4 py-2">Type</th>
+              <th class="px-4 py-2">Priority</th>
+              <th class="px-4 py-2">Description</th>
+              <th class="px-4 py-2">Submitted</th>
+              <th class="px-4 py-2">Status</th>
+              <th class="px-4 py-2 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            {% for ticket in completed_tickets %}
+            <tr class="border-b hover:bg-gray-50 transition">
+              <td
+                class="px-4 py-3 font-semibold text-[var(--nexus-blue)] whitespace-nowrap"
+              >
+                {{ ticket.ticket_number }}
+              </td>
+              <td class="px-4 py-3 text-gray-800">
+                {{ ticket.request_type|capitalize }}
+              </td>
+              <td class="px-4 py-3 text-gray-900 font-bold">
+                {{ ticket.priority }}
+              </td>
+              <td class="px-4 py-3 text-gray-800 max-w-[200px] truncate">
+                {{ ticket.description }}
+              </td>
+              <td class="px-4 py-3 text-gray-600 whitespace-nowrap">
+                {{ ticket.created_at.strftime('%b %d, %Y') }}
+              </td>
+              <td class="px-4 py-3">
+                <span
+                  class="inline-block px-2 py-1 text-xs font-medium rounded-full bg-gray-200 text-gray-700"
+                >
+                  {{ ticket.status }}
+                </span>
+              </td>
+              <td class="px-4 py-3 text-right">
+                {% set ns = namespace(pdf_file=None) %} {% if ticket.attachments
+                %} {% for f in ticket.attachments %} {% if ns.pdf_file is none
+                and 'review/' in f.file_path.lower() and
+                f.file_path.lower().endswith('.pdf') %} {% set ns.pdf_file =
+                f.file_path.split('/')[-1] %} {% endif %} {% endfor %} {% endif
+                %}
+                <button
+                  type="button"
+                  class="btn-primary text-sm px-3 py-1 view-pdf-btn"
+                  data-ticket="{{ ticket.ticket_number }}"
+                  data-filename="{{ ns.pdf_file if ns.pdf_file else '' }}"
+                  {%
+                  if
+                  not
+                  ns.pdf_file
+                  %}disabled
+                  title="No PDF available"
+                  {%
+                  endif
+                  %}
+                >
+                  Review
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="text-gray-600">No completed tickets found.</p>
+      {% endif %}
+    </div>
+
+    <!-- PDF Annotation Modal (no bottom-right button) -->
+    <div
+      id="pdf-annotation-overlay"
+      class="hidden fixed inset-0 bg-black bg-opacity-60 z-50"
+    >
+      <div
+        id="pdf-annotation-modal"
+        class="relative bg-white w-[95vw] h-[95vh] mx-auto my-4 rounded shadow-lg overflow-hidden"
+      >
+        <button
+          id="close-pdf-annotation"
+          class="absolute top-2 right-2 text-gray-500 hover:text-red-500 z-10"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <!-- PDF Viewer Container -->
+        <div id="pdf-annotation-container" class="w-full h-full"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %} {{ super() }} {% endblock %}
